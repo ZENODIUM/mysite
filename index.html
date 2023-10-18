@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zeno's website</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome CSS -->
+    
+    <!-- Google Fonts - Montserrat -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/8af2c78dba.js" crossorigin="anonymous"></script>
+    <!-- Custom CSS -->
+    <style>
+        html {
+            overflow: scroll;
+            overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+        ::-webkit-scrollbar {
+            width: 0;  /* Remove scrollbar space */
+            background: transparent;  /* Optional: just make scrollbar invisible */
+        }
+        /* Optional: show position indicator in red */
+        ::-webkit-scrollbar-thumb {
+            background: #FF0000;
+        }
+
+
+        body, h1, h2, h3, h4, h5, h6 {
+            font-family: "Montserrat", sans-serif;
+        }
+        header {
+        background-image: url('/static/david.jpg'); /* Replace URL_TO_your_image.jpg with the actual URL to your image */
+        background-size: cover;
+        background-position: center; /* Adjust the position as needed */
+        background-repeat: no-repeat;
+        height: 100vh; /* Set the height to cover the full viewport height */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+
+        /* Set the width of the sidebar to 120px */
+        .sidebar {
+            width: 120px;
+            background: #000000;
+            color: white;
+            position: fixed;
+            height: 100%; /* Add flex display */ /* Arrange elements vertically */
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+
+        }
+
+        /* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
+        #main {
+            margin-left: 80px;
+        }
+
+        /* Remove margins from "page content" on small screens */
+        @media only screen and (max-width: 600px) {
+            #main {
+                margin-left: 0;
+            }
+
+            .sidebar {
+                display: none;
+            }
+        }
+.neon-text {
+    color: transparent;
+    text-align: center;
+    
+    animation: neon-glow 1.5s infinite alternate, fade-in 6s forwards;
+
+}
+.social-icons {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+
+.audio-player {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            background-color: white;
+            height: 5px;
+            margin-top: 10px; /* Add margin to separate it from the button */
+        }
+
+        .progress-bar {
+            width: 0;
+            height: 100%;
+            background-color: black;
+        }
+
+        .play-pause-button {
+        background-color: white;
+        color: black;
+        font-size: 24px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 30px; /* Add rounded corners */
+        cursor: pointer;
+    }
+    .nav-link:hover .neon-text, .nav-link:hover i {
+    transform: scale(1.15); /* Scale down on hover for both text and icons */
+}
+
+/* Keyframes for the neon glow animation */
+@keyframes neon-glow {
+    0% {
+        text-shadow: 0 0 5px #ffffff, 0 0 5px #ffffff, 0 0 5px #ffffff;
+    }
+    100% {
+        text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 15px #ffffff;
+    }
+}
+@keyframes fade-in {
+    to {
+        color: #fff;
+    }
+}
+
+
+</style>
+</head>
+<body style="background-color: #000000;overflow-x: hidden;">
+
+<!-- Sidebar (hidden on small screens) -->
+<nav class="sidebar">
+    <!-- Avatar image in top left corner -->
+    <img src="/static/logo.png" alt="Avatar" style="width:100%">
+    <br><br><br><br><br>
+    
+    <a href="#" class="nav-link text-white">
+    
+        <i class="fa-solid fa-house fa-2x"></i>
+
+        <p class="neon-text">Home</p>
+
+    </a>
+    <br>
+    <a href="#about" class="nav-link text-white" >
+        <i class="fa-solid fa-user-ninja fa-2x"></i>
+        <p class="neon-text">About me</p>
+    </a>
+    <br>
+    <a href="#youtube" class="nav-link text-white">
+        <i class="fa-brands fa-youtube fa-2x"></i>
+        <p class="neon-text">Youtube</p>
+    </a>
+    <br>
+    <a href="#skills" class="nav-link text-white">
+        <i class="fa-solid fa-code fa-2x"></i>
+        <p class="neon-text">Skills</p>
+    </a>
+</nav>
+
+<!-- Navbar on small screens (Hidden on medium and large screens) -->
+<div class="navbar navbar-expand-lg bg-black navbar-dark d-lg-none">
+    <a class="navbar-brand" href="#">Menu</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+            <a class="nav-link" href="#">HOME</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#about">ABOUT</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#youtube">YOUTUBE</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#skills">Skills</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- Page Content -->
+<div class="container-fluid" id="main">
+    <!-- Header/Home -->
+    <header class="container-fluid bg-black text-white text-center py-5" id="home">
+        <h1  class="neon-text" style="font-size:6rem">I'm Zeno</h1>
+        
+        <h4 class="neon-text" style="font-size:1rem">- AI Enthusiast / Content Creator</h4> <br>
+        <div class="social-icons">
+        <a href="https://www.instagram.com/vizeno.s/" class="nav-link text-white">
+            <i class="fa-brands fa-instagram fa-2x"></i>
+        </a>
+        <a href="https://github.com/ZENODIUM" class="nav-link text-white">
+            <i class="fa-brands fa-github fa-2x"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/vizeno/" class="nav-link text-white">
+            <i class="fa-brands fa-linkedin fa-2x"></i>
+        </a>
+        </div>
+        <br>
+        <br>
+        
+    </header>
+
+    <!-- About Section -->
+    
+    <div class="container py-5" id="about">
+    <h2 class="neon-text">Music as you scroll down </h2>
+    <h4 style="text-align:center;color: #ffffff;">Wunshe - Sunday Vibes.mp3</h4>
+        <div class="audio-player">
+            <audio id="audio-player">
+                <source src="/static/sunday.mp3" type="audio/mp3"> <!-- Update the path -->
+                Your browser does not support the audio element.
+            </audio>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            <br>
+            <button class="play-pause-button" id="play-pause-button">
+                <i class="fas fa-solid fa-play"></i> <!-- Play icon -->
+            </button>
+        </div>
+        <br><br>
+        <h2 class="neon-text">Who Am I ?</h2>
+        
+        <br>
+        <hr style="width:500px" class="bg-light">
+        
+        <br>
+        <h4 style="color:white">Welcome to the Hood, I'm Vishnu (Alias - Zeno),  a wanderer navigating the  realms of AI, data science, and the boundless universe of ideas.
+            passionate about self-improvement, personal growth, and the art of becoming the best version of ourselves.In the midst of life's hustle and bustle, I find solace and balance through meditation and spirituality.
+            Chess is more than just a game to me; it's a deep well of thinking and brain exercise. 
+            "Still wondering the meaning of existence of everything around us"
+        </h4>
+        
+    </div>
+    <div class="container py-5" id="youtube" style="text-align: center;">
+        <h2  class="neon-text">Art of Self Mastery</h2>
+        <br>
+        <hr style="width:500px" class="bg-light">
+        <br>
+        <a href="https://www.youtube.com/@artofselfmastery"><img src="static/yt_logo.jpg" style="width: 200px;height: 200px;" title="YouTube Video" alt="YouTube Video" class="center">
+        <button style="background-color: #FF0000; color: #FFFFFF;padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px;">Subscribe</button></a>
+        
+
+    </div>
+    <div class="container py-5" id="skills" style="text-align: center;">
+        <h2  class="neon-text">Skills</h2>
+        <br>
+        <hr style="width:500px" class="bg-light">
+        <div style="margin: 20px 0; text-align: center;">
+            <i class="fa-solid fa-gear fa-2x" style="color:white;"></i>
+            <p style="font-weight: bold; color: white;">Machine Learning</p>
+            
+            <p style="font-style: italic; color: white;">(7 projects)</p>
+            <br>
+            <i class="fa-solid fa-globe  fa-2x" style="color:white;"></i>
+            <p style="font-weight: bold; color: white;">HTML/CSS/JS</p>
+            
+            <p style="font-style: italic; color: white;">(5 projects)</p>
+            <br>
+          
+
+            <i class="fa-solid fa-video fa-2x" style="color:white;"></i>
+            <p style="font-weight: bold; color: white;">Video Editing</p>
+           
+            <p style="font-style: italic; color: white;">(3 edits)</p>
+          </div>
+          
+    </div>
+    <div class="container py-5" id="projects" style="text-align: center;">
+        <h2  class="neon-text">Projects</h2>
+        <br>
+        <hr style="width:500px" class="bg-light">
+        <br>
+        <h1 style="color:white"> &#x26A0;   UNDER CONSTRUCTION !  &#x26A0;</h1>
+    </div>
+    
+        <script>
+            const audioPlayer = document.getElementById('audio-player');
+            const progress = document.getElementById('progress-bar');
+            const playPauseButton = document.getElementById('play-pause-button');
+            let isPlaying = false;
+    
+            // Update the progress bar based on audio playback
+            audioPlayer.addEventListener('timeupdate', () => {
+                const currentTime = audioPlayer.currentTime;
+                const duration = audioPlayer.duration;
+                const progressPercentage = (currentTime / duration) * 100;
+                progress.style.width = progressPercentage + '%';
+            });
+    
+            // Toggle play/pause when the button is clicked
+            playPauseButton.addEventListener('click', () => {
+                if (isPlaying) {
+                    audioPlayer.pause();
+                    playPauseButton.innerHTML = '<i class="fas fa-solid fa-play"></i>'; // Play icon
+                } else {
+                    audioPlayer.play();
+                    playPauseButton.innerHTML = '<i class="fas fa-solid fa-pause"></i>'; // Pause icon
+                }
+                isPlaying = !isPlaying;
+            });
+        </script>
+        
+        <br>
+    
+
+    <!-- Footer -->
+    <footer class="container-fluid bg-black text-grey text-center py-3">
+        <p style="color: white;">Zeno</p>
+        <p class="small" style="color:white">Powered by <a href="https://getbootstrap.com" target="_blank" class="text-success">Bootstrap</a></p>
+    </footer>
+    <!-- End footer -->
+
+
+<!-- Bootstrap JS and jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
