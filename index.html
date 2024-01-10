@@ -13,6 +13,75 @@
     <script src="https://kit.fontawesome.com/8af2c78dba.js" crossorigin="anonymous"></script>
     <!-- Custom CSS -->
     <style>
+        @media only screen and (max-width: 600px) {
+            body {
+                overflow-x: auto;
+            }
+
+            .sidebar {
+                width: 100%;
+                margin-left: 0;
+                position: static;
+            }
+
+            #main {
+                margin-left: 0;
+            }
+
+            .navbar-toggler {
+                display: block;
+            }
+
+            .navbar-collapse {
+                display: none;
+            }
+
+            .navbar-nav {
+                flex-direction: column;
+            }
+
+            .navbar-toggler-icon {
+                background-color: white;
+            }
+
+            .neon-text, .nav-link, .fa-2x {
+                transform: none;
+            }
+
+            header {
+                height: auto;
+            }
+
+            .social-icons {
+                flex-direction: row;
+                margin-top: 0;
+            }
+
+            .audio-player, .progress-bar-container, .progress-bar {
+                width: 100%;
+            }
+
+            .center {
+                width: 80%;
+            }
+
+            #about, #youtube, #skills, #projects {
+                padding: 20px;
+            }
+
+            h1.neon-text {
+                font-size: 4rem;
+            }
+
+            h4.neon-text {
+                font-size: 0.8rem;
+            }
+
+            .play-pause-button {
+                font-size: 18px;
+                padding: 8px 16px;
+            }
+        }
         html {
             overflow: scroll;
             overflow-x: hidden;
