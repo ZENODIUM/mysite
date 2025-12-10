@@ -1123,6 +1123,30 @@
             transform: translateY(-50%);
         }
 
+        /* Mobile single-card layout */
+        @media (max-width: 768px) {
+            .info-box {
+                left: 50% !important;
+                right: auto !important;
+                top: 50% !important;
+                transform: translate(-50%, -50%) !important;
+            }
+            .info-box.right {
+                display: none !important;
+            }
+            .info-box.active {
+                width: 90vw !important;
+                height: 75vh !important;
+                padding: 18px !important;
+            }
+            .info-box.mobile-single {
+                overflow-y: auto;
+            }
+            .info-box.mobile-single p {
+                max-width: 100%;
+            }
+        }
+
         /* Closing animation - reverse of appear: remove styling, shrink height, shrink width, fade */
         /* Center point for left box: 20px + 240px (half of 480px) = 260px from left */
         .info-box:not(.active).left {
@@ -1275,6 +1299,15 @@
             color:rgb(118, 118, 118);
             z-index: 100;
             pointer-events: none;
+        }
+
+        /* Mobile heading adjustments */
+        @media (max-width: 768px) {
+            .portfolio-heading {
+                top: 18px;
+                font-size: 22px;
+                text-align: center;
+            }
         }
 
         /* Bottom rotating text */
@@ -1883,6 +1916,8 @@
 
         const cubeAngles = [0, 60, 120, 180, 240, 300];
 
+        const isMobileView = () => window.matchMedia('(max-width: 768px)').matches;
+
         function handleCubeClick(cubeIndex, wrapper) {
             // Remove active class from all cubes and reset transforms
             cubeWrappers.forEach((cube, idx) => {
@@ -1906,10 +1941,21 @@
             // Update info boxes
             const content = cubeContent[cubeIndex];
             if (content) {
-                infoBoxLeftContent.innerHTML = content.left;
-                infoBoxRightContent.innerHTML = content.right;
-                infoBoxLeft.classList.add('active');
-                infoBoxRight.classList.add('active');
+                if (isMobileView()) {
+                    // Single, centered scrollable card on mobile
+                    infoBoxLeftContent.innerHTML = `${content.left}<br><br>${content.right}`;
+                    infoBoxLeft.classList.add('active', 'mobile-single');
+                    infoBoxRight.classList.remove('active');
+                    infoBoxRight.style.display = 'none';
+                } else {
+                    // Dual cards on desktop
+                    infoBoxLeftContent.innerHTML = content.left;
+                    infoBoxRightContent.innerHTML = content.right;
+                    infoBoxLeft.classList.add('active');
+                    infoBoxLeft.classList.remove('mobile-single');
+                    infoBoxRight.classList.add('active');
+                    infoBoxRight.style.display = '';
+                }
             }
 
             // Update bottom text with cube-specific message
@@ -1955,6 +2001,8 @@
                 orbitContainer.classList.remove('has-active');
                 infoBoxLeft.classList.remove('active');
                 infoBoxRight.classList.remove('active');
+                infoBoxLeft.classList.remove('mobile-single');
+                infoBoxRight.style.display = '';
                 activeCube = null;
                 // Hide emoji and show eyes
                 screen.classList.remove('show-emoji');
