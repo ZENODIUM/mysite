@@ -1,0 +1,1968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cube Robot - Mouse Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(to bottom, rgb(255, 255, 255), rgb(210, 210, 210));
+            font-family: "Quicksand", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .scene-container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            perspective: 1000px;
+        }
+
+        .robot-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            perspective: 1000px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .robot-container::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 240px;
+            height: 240px;
+            background: radial-gradient(circle, rgba(128, 128, 128, 0.4) 0%, rgba(128, 128, 128, 0.2) 40%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            filter: blur(18px);
+        }
+
+        /* Floating animation - smooth up and down movement */
+        @keyframes float {
+            0%, 100% {
+                transform: translate(-50%, -50%) translateY(0px);
+            }
+            50% {
+                transform: translate(-50%, -50%) translateY(-8px);
+            }
+        }
+
+        .robot-shadow {
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90px;
+            height: 20px;
+            background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.05) 50%, transparent 100%);
+            border-radius: 50%;
+            filter: blur(6px);
+            z-index: -1;
+        }
+
+        .robot-body {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease-out;
+            cursor: pointer;
+        }
+
+        .cube {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            transform-style: preserve-3d;
+        }
+
+        .cube-inner {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            transform-style: preserve-3d;
+        }
+
+        .cube-inner-face {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: #f0f0f0;
+            border-radius: 0px;
+        }
+
+        .cube-inner-face.front {
+            transform: rotateY(0deg) translateZ(59px);
+        }
+
+        .cube-inner-face.back {
+            transform: rotateY(180deg) translateZ(59px);
+        }
+
+        .cube-inner-face.right {
+            transform: rotateY(90deg) translateZ(59px);
+            width: 120px;
+        }
+
+        .cube-inner-face.left {
+            transform: rotateY(-90deg) translateZ(59px);
+            width: 120px;
+        }
+
+        .cube-inner-face.top {
+            transform: rotateX(90deg) translateZ(59px);
+            height: 120px;
+        }
+
+        .cube-inner-face.bottom {
+            transform: rotateX(-90deg) translateZ(59px);
+            height: 120px;
+        }
+
+        .cube-face {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: #f8f8f8;
+            border: 2px solid #e0e0e0;
+            box-shadow: 
+                inset 0 0 10px rgba(0, 0, 0, 0.1),
+                inset -1px -1px 4px rgba(0, 0, 0, 0.08),
+                inset 1px 1px 4px rgba(0, 0, 0, 0.05);
+            border-radius: 15px;
+        }
+
+        .cube-face::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 15px;
+            background: 
+                radial-gradient(circle at 0% 0%, rgba(0, 0, 0, 0.12) 0%, transparent 30%),
+                radial-gradient(circle at 100% 0%, rgba(0, 0, 0, 0.12) 0%, transparent 30%),
+                radial-gradient(circle at 0% 100%, rgba(0, 0, 0, 0.12) 0%, transparent 30%),
+                radial-gradient(circle at 100% 100%, rgba(0, 0, 0, 0.12) 0%, transparent 30%);
+            pointer-events: none;
+        }
+
+        .cube-face.front {
+            transform: rotateY(0deg) translateZ(60px);
+        }
+
+        .cube-face.back {
+            transform: rotateY(180deg) translateZ(60px);
+        }
+
+        .cube-face.right {
+            transform: rotateY(90deg) translateZ(60px);
+            width: 120px;
+        }
+
+        .cube-face.left {
+            transform: rotateY(-90deg) translateZ(60px);
+            width: 120px;
+        }
+
+        .cube-face.top {
+            transform: rotateX(90deg) translateZ(60px);
+            height: 120px;
+        }
+
+        .cube-face.bottom {
+            transform: rotateX(-90deg) translateZ(60px);
+            height: 120px;
+        }
+
+        .screen {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 80px;
+            height: 50px;
+            background: #808080;
+            border-radius: 7px;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
+        }
+
+        .eyes-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 50px;
+        }
+
+        /* Emoji display when hovering over cubes */
+        .emoji-display {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 32px;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 20;
+            transition: opacity 0.3s ease;
+        }
+
+        .screen.show-emoji .emoji-display {
+            opacity: 1;
+        }
+
+        .screen.show-emoji .eyes-container {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .eye {
+            position: absolute;
+            width: 16px;
+            height: 25px;
+            background: #ffffff;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.1s ease-out;
+            overflow: hidden;
+        }
+
+        .eye.left {
+            left: 16px;
+        }
+
+        .eye.right {
+            right: 16px;
+        }
+
+        .pupil {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #666666;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease-out, opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        /* White reflection on pupils */
+        .pupil::before {
+            content: '';
+            position: absolute;
+            width: 2.5px;
+            height: 2.5px;
+            background: #ffffff;
+            border-radius: 50%;
+            top: 20%;
+            right: 20%;
+            pointer-events: none;
+        }
+
+        /* Hide normal eyes and show smiling semi-circle eyes during wave */
+        .robot-body.waving .eye {
+            background: transparent;
+            animation: none; /* Pause blink during wave */
+        }
+
+        .robot-body.waving .pupil {
+            opacity: 0;
+            animation: none; /* Pause blink during wave */
+        }
+
+        .robot-body.waving .eye::before {
+            animation: none; /* Hide flat line during wave */
+            opacity: 0;
+        }
+
+        /* Create smiling semi-circle eyes using ::after pseudo-element */
+        .eye::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .robot-body.waving .eye::after {
+            width: 18px;
+            height: 12px;
+            border: 2px solid #ffffff;
+            border-bottom: none;
+            border-radius: 18px 18px 0 0;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 1;
+        }
+
+        /* Blinking animation - flat horizontal line every 6 seconds */
+        @keyframes blinkEye {
+            0%, 98%, 100% {
+                background: #ffffff;
+                height: 25px;
+                border-radius: 50%;
+            }
+            99% {
+                background: transparent;
+                height: 25px;
+                border-radius: 50%;
+            }
+        }
+
+        .eye {
+            animation: blinkEye 6s infinite;
+        }
+
+        /* Hide pupils during blink */
+        @keyframes blinkPupil {
+            0%, 98%, 100% {
+                opacity: 1;
+            }
+            99% {
+                opacity: 0;
+            }
+        }
+
+        .pupil {
+            animation: blinkPupil 6s infinite;
+        }
+
+        /* Flat line blink overlay */
+        .eye::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 16px;
+            height: 0;
+            background: #ffffff;
+            transform: translateY(-50%);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1;
+            animation: blinkLine 6s infinite;
+        }
+
+        @keyframes blinkLine {
+            0%, 98%, 100% {
+                height: 0;
+                opacity: 0;
+            }
+            99% {
+                height: 2px;
+                opacity: 1;
+            }
+        }
+
+        .arm {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            top: 50%;
+            transform: translateY(-50%);
+            transform-style: preserve-3d;
+            perspective: 200px;
+        }
+
+        .arm::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 40px;
+            background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .arm.left::before {
+            right: -5px;
+        }
+
+        .arm.right::before {
+            left: -5px;
+        }
+
+        .hand-cube {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            transform-style: preserve-3d;
+        }
+
+        .hand-face {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            background: #808080;
+            border: 1.5px solid #6e6e6e;
+            box-shadow: 
+                inset 0 0 5px rgba(0, 0, 0, 0.2),
+                inset -1px -1px 2px rgba(0, 0, 0, 0.15),
+                inset 1px 1px 2px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+
+        .hand-face::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 4px;
+            background: 
+                radial-gradient(circle at 0% 0%, rgba(0, 0, 0, 0.2) 0%, transparent 35%),
+                radial-gradient(circle at 100% 0%, rgba(0, 0, 0, 0.2) 0%, transparent 35%),
+                radial-gradient(circle at 0% 100%, rgba(0, 0, 0, 0.2) 0%, transparent 35%),
+                radial-gradient(circle at 100% 100%, rgba(0, 0, 0, 0.2) 0%, transparent 35%);
+            pointer-events: none;
+        }
+
+        .hand-face.front  { transform: rotateY(0deg) translateZ(16px); }
+        .hand-face.back   { transform: rotateY(180deg) translateZ(16px); }
+        .hand-face.right  { transform: rotateY(90deg) translateZ(16px); }
+        .hand-face.left   { transform: rotateY(-90deg) translateZ(16px); }
+        .hand-face.top    { transform: rotateX(90deg) translateZ(16px); }
+        .hand-face.bottom { transform: rotateX(-90deg) translateZ(16px); }
+
+        .arm.left {
+            left: -45px;
+        }
+
+        .arm.right {
+            right: -45px;
+            transform-origin: left center;
+            transition: transform 0.5s ease-out;
+        }
+
+        /* Wave animation - raise hand first, then wave, then return smoothly */
+        @keyframes wave {
+            0% {
+                transform: translateY(-50%) translateY(-10px) rotateZ(0deg);
+            }
+            15% {
+                transform: translateY(-50%) translateY(-15px) rotateZ(0deg);
+            }
+            30% {
+                transform: translateY(-50%) translateY(-15px) rotateZ(-30deg);
+            }
+            50% {
+                transform: translateY(-50%) translateY(-15px) rotateZ(30deg);
+            }
+            70% {
+                transform: translateY(-50%) translateY(-15px) rotateZ(-30deg);
+            }
+            85% {
+                transform: translateY(-50%) translateY(-10px) rotateZ(0deg);
+            }
+            100% {
+                transform: translateY(-50%) rotateZ(0deg);
+            }
+        }
+
+        .arm.right.waving {
+            animation: wave 2s ease-in-out;
+        }
+
+        /* Body tilt animation - tilts to the left when right hand waves */
+        @keyframes bodyTilt {
+            0% {
+                transform: rotateZ(0deg);
+            }
+            15% {
+                transform: rotateZ(-8deg);
+            }
+            30%, 70% {
+                transform: rotateZ(-10deg);
+            }
+            85% {
+                transform: rotateZ(-8deg);
+            }
+            100% {
+                transform: rotateZ(0deg);
+            }
+        }
+
+        .robot-body.waving {
+            animation: bodyTilt 2s ease-in-out;
+        }
+
+        /* Emote 1: Heart eyes with pink blush and jump */
+        @keyframes jump {
+            0%, 100% {
+                transform: translate(-50%, -50%) translateY(0px);
+            }
+            20% {
+                transform: translate(-50%, -50%) translateY(-20px);
+            }
+            40% {
+                transform: translate(-50%, -50%) translateY(-15px);
+            }
+            60% {
+                transform: translate(-50%, -50%) translateY(-20px);
+            }
+            80% {
+                transform: translate(-50%, -50%) translateY(-5px);
+            }
+        }
+
+        @keyframes handsUp {
+            0%, 100% {
+                transform: translateY(-50%) rotateZ(0deg);
+            }
+            50% {
+                transform: translateY(-50%) translateY(-25px) rotateZ(-45deg);
+            }
+        }
+
+        @keyframes handsUpLeft {
+            0%, 100% {
+                transform: translateY(-50%) rotateZ(0deg);
+            }
+            50% {
+                transform: translateY(-50%) translateY(-25px) rotateZ(45deg);
+            }
+        }
+
+        .robot-body.heart-emote .arm.left {
+            animation: handsUpLeft 2.5s ease-in-out;
+        }
+
+        .robot-container.heart-emote {
+            animation: jump 2.5s ease-in-out;
+        }
+
+        .robot-body.heart-emote .arm {
+            animation: handsUp 2.5s ease-in-out;
+        }
+
+        /* Heart eyes - using Unicode heart character */
+        .robot-body.heart-emote .eye {
+            background: transparent !important;
+            animation: none !important;
+            width: 18px;
+            height: 16px;
+        }
+
+        .robot-body.heart-emote .eye::before {
+            display: none;
+        }
+
+        .robot-body.heart-emote .eye::after {
+            content: '♥';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 28px;
+            color: #ff69b4;
+            line-height: 1;
+            opacity: 1;
+            width: auto;
+            height: auto;
+            border: none;
+            border-radius: 0;
+        }
+
+        .robot-body.heart-emote .pupil {
+            opacity: 0 !important;
+            animation: none !important;
+        }
+
+        /* Pink blush on sides - using screen element's pseudo-elements */
+        .robot-body.heart-emote .screen::before {
+            content: '';
+            position: absolute;
+            top: 40%;
+            left: -5px;
+            width: 28px;
+            height: 22px;
+            background: radial-gradient(ellipse, rgba(255, 192, 203, 0.8) 0%, rgba(255, 192, 203, 0) 70%);
+            border-radius: 50%;
+            z-index: 15;
+            pointer-events: none;
+        }
+
+        .robot-body.heart-emote .screen::after {
+            content: '';
+            position: absolute;
+            top: 40%;
+            right: -5px;
+            width: 28px;
+            height: 22px;
+            background: radial-gradient(ellipse, rgba(255, 192, 203, 0.8) 0%, rgba(255, 192, 203, 0) 70%);
+            border-radius: 50%;
+            z-index: 15;
+            pointer-events: none;
+        }
+
+        /* Emote 2: Tilt backward with hands down and quick blink with big pupils */
+        @keyframes tiltBackward {
+            0%, 100% {
+                transform: rotateX(0deg);
+            }
+            30%, 70% {
+                transform: rotateX(-15deg);
+            }
+        }
+
+        @keyframes handsDown {
+            0%, 100% {
+                transform: translateY(-50%) rotateZ(0deg);
+            }
+            30%, 70% {
+                transform: translateY(-50%) translateY(15px) rotateZ(20deg);
+            }
+        }
+
+        @keyframes handsDownLeft {
+            0%, 100% {
+                transform: translateY(-50%) rotateZ(0deg);
+            }
+            30%, 70% {
+                transform: translateY(-50%) translateY(15px) rotateZ(-20deg);
+            }
+        }
+
+        .robot-body.tilt-emote .arm.left {
+            animation: handsDownLeft 2s ease-in-out;
+        }
+
+        /* Squinting animation - reduce eye height from top and bottom */
+        @keyframes squint {
+            0%, 100% {
+                height: 25px;
+                border-radius: 50%;
+            }
+            30%, 70% {
+                height: 12px;
+                border-radius: 50%;
+            }
+        }
+
+        .robot-body.tilt-emote {
+            animation: tiltBackward 3s ease-in-out;
+            transform-origin: center bottom;
+        }
+
+        .robot-body.tilt-emote .arm {
+            animation: handsDown 3s ease-in-out;
+        }
+
+        .robot-body.tilt-emote .arm.left {
+            animation: handsDownLeft 3s ease-in-out;
+        }
+
+        .robot-body.tilt-emote .eye {
+            animation: blinkEye 6s infinite, squint 3s ease-in-out !important;
+        }
+
+        .robot-body.tilt-emote .pupil {
+            animation: blinkPupil 6s infinite !important;
+            transform: translate(-50%, -50%) !important;
+        }
+
+        .robot-body.tilt-emote .eye::before {
+            animation: blinkLine 6s infinite !important;
+        }
+
+        .details {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 7px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .progress-bar {
+            width: 30px;
+            height: 12px;
+            background: #1a4d1a;
+            border-radius: 2px;
+            position: relative;
+            overflow: hidden;
+            order: 1;
+        }
+
+        /* Heart rate scanning line - appears from left, disappears on right */
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -100%;
+            width: 60%;
+            height: 2px;
+            background: #4caf50;
+            transform: translateY(-50%);
+            animation: heartRateScan 2s linear infinite;
+        }
+
+        @keyframes heartRateScan {
+            0% {
+                left: -100%;
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                left: 100%;
+                opacity: 0;
+            }
+        }
+
+        .slot {
+            display: none;
+        }
+
+        .button {
+            width: 8px;
+            height: 8px;
+            background: #ff0000;
+            border-radius: 50%;
+            box-shadow: 
+                0 0 8px rgba(255, 0, 0, 0.6),
+                0 0 12px rgba(255, 0, 0, 0.4),
+                inset 0 0 4px rgba(255, 255, 255, 0.3);
+            animation: ledGlow 2s ease-in-out infinite;
+            order: 3;
+            margin-left: 5px;
+        }
+
+        @keyframes ledGlow {
+            0%, 100% {
+                opacity: 0.8;
+                box-shadow: 
+                    0 0 6px rgba(255, 0, 0, 0.5),
+                    0 0 10px rgba(255, 0, 0, 0.3),
+                    inset 0 0 4px rgba(255, 255, 255, 0.2);
+            }
+            50% {
+                opacity: 1;
+                box-shadow: 
+                    0 0 10px rgba(255, 0, 0, 0.8),
+                    0 0 16px rgba(255, 0, 0, 0.5),
+                    inset 0 0 4px rgba(255, 255, 255, 0.4);
+            }
+        }
+
+        /* Orbiting cubes */
+        .orbit-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 360px;
+            height: 360px;
+            transform-style: preserve-3d;
+        }
+
+        .orbit-cube-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform-style: preserve-3d;
+            cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Circular shadow below cube when hovered or active */
+        .orbit-cube-wrapper::before {
+            content: '';
+            position: absolute;
+            top: calc(50% + 20px); /* Base vertical position: 20px below cube center. Change 20px to adjust all shadows */
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(ellipse, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0) 70%);
+            border-radius: 50%;
+            opacity: 0;
+            transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        /* Counter-rotate shadow to keep it upright for each cube */
+        /* To adjust individual shadow positions, modify translateX (horizontal) and translateY (vertical) */
+        /* Example: translateX(10px) = move right 10px, translateX(-10px) = move left 10px */
+        /* Example: translateY(5px) = move down 5px, translateY(-5px) = move up 5px */
+        /* You can also change the 'top' value in the base ::before rule (currently calc(50% + 20px)) */
+        
+        /* Cube 1: About Me - Shadow */
+        .orbit-cube-wrapper:nth-child(1)::before {
+            transform: translateY(12px) translate(-50%, -50%) rotateZ(0deg);
+            /* Adjust: add translateX(10px) to move right, translateX(-10px) to move left */
+            /* Adjust: add translateY(5px) to move down, translateY(-5px) to move up */
+        }
+        /* Cube 2: My Works - Shadow */
+        .orbit-cube-wrapper:nth-child(2)::before {
+            transform: translateX(30px) translateY(-5px) translate(-50%, -50%) rotateZ(-60deg);
+            /* Adjust: add translateX(10px) to move right, translateX(-10px) to move left */
+            /* Adjust: add translateY(5px) to move down, translateY(-5px) to move up */
+        }
+        /* Cube 3: My Skills - Shadow */
+        .orbit-cube-wrapper:nth-child(3)::before {
+            transform: translateX(25px) translateY(-40px) translate(-50%, -50%) rotateZ(-120deg);
+            /* Adjust: add translateX(10px) to move right, translateX(-10px) to move left */
+            /* Adjust: add translateY(5px) to move down, translateY(-5px) to move up */
+        }
+        /* Cube 4: Achievements - Shadow */
+        .orbit-cube-wrapper:nth-child(4)::before {
+            transform: translateX(0px) translateY(-55px) translate(-50%, -50%) rotateZ(-180deg);
+            /* Adjust: add translateX(10px) to move right, translateX(-10px) to move left */
+            /* Adjust: add translateY(5px) to move down, translateY(-5px) to move up */
+        }
+        /* Cube 5: Contact Me - Shadow */
+        .orbit-cube-wrapper:nth-child(5)::before {
+            transform: translateX(-30px) translateY(-35px) translate(-50%, -50%) rotateZ(-240deg);
+            /* Adjust: add translateX(10px) to move right, translateX(-10px) to move left */
+            /* Adjust: add translateY(5px) to move down, translateY(-5px) to move up */
+        }
+        /* Cube 6: My Youtube - Shadow */
+        .orbit-cube-wrapper:nth-child(6)::before {
+            transform: translateX(-30px) translateY(-5px) translate(-50%, -50%) rotateZ(-300deg);
+            /* Adjust: add translateX(10px) to move right, translateX(-10px) to move left */
+            /* Adjust: add translateY(5px) to move down, translateY(-5px) to move up */
+        }
+
+        .orbit-cube-wrapper:hover::before,
+        .orbit-cube-wrapper.active::before {
+            width: 60px;
+            height: 20px;
+            opacity: 1;
+        }
+
+        .cube-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            white-space: nowrap;
+            font-size: 12px;
+            color: #666666;
+            font-weight: 500;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* Position labels above cubes and keep them upright */
+        /* Transform order (applied right-to-left): counter-rotate, move up, center */
+        /* To adjust individual positions, modify translateY (vertical) and add translateX (horizontal) */
+        /* Example: translateY(-35px) = move up 35px, translateY(-50px) = move up more */
+        /* Example: translateX(10px) = move right 10px, translateX(-10px) = move left 10px */
+        
+        /* Cube 1: About Me */
+        .orbit-cube-wrapper:nth-child(1) .cube-label {
+            transform: rotateZ(0deg) translateY(-35px) translate(-50%, -50%);
+            /* Adjust: change -35px to move up/down, add translateX(10px) to move left/right */
+        }
+        /* Cube 2: My Works */
+        .orbit-cube-wrapper:nth-child(2) .cube-label {
+            transform: rotateZ(-60deg) translateX(15px) translateY(-60px) translate(-50%, -50%);
+            /* Adjust: change -35px to move up/down, add translateX(10px) to move left/right */
+        }
+        /* Cube 3: My Skills */
+        .orbit-cube-wrapper:nth-child(3) .cube-label {
+            transform: rotateZ(-120deg) translateX(40px) translateY(-50px) translate(-50%, -50%);
+            /* Adjust: change -35px to move up/down, add translateX(10px) to move left/right */
+        }
+        /* Cube 4: Achievements */
+        .orbit-cube-wrapper:nth-child(4) .cube-label {
+            transform: rotateZ(-180deg) translateX(75px) translateY(-20px) translate(-50%, -50%);
+            /* Adjust: change -35px to move up/down, add translateX(10px) to move left/right */
+        }
+        /* Cube 5: Contact Me */
+        .orbit-cube-wrapper:nth-child(5) .cube-label {
+            transform: rotateZ(-240deg) translateX(40px) translateY(5px) translate(-50%, -50%);
+            /* Adjust: change -35px to move up/down, add translateX(10px) to move left/right */
+        }
+        /* Cube 6: My Youtube */
+        .orbit-cube-wrapper:nth-child(6) .cube-label {
+            transform: rotateZ(-300deg) translateX(10px) translateY(-5px) translate(-50%, -50%);
+            /* Adjust: change -35px to move up/down, add translateX(10px) to move left/right */
+        }
+
+        .orbit-cube-wrapper:nth-child(1) { 
+            transform: translate(-50%, -50%) rotateZ(0deg) translateX(180px);
+        }
+        .orbit-cube-wrapper:nth-child(2) { 
+            transform: translate(-50%, -50%) rotateZ(60deg) translateX(180px);
+        }
+        .orbit-cube-wrapper:nth-child(3) { 
+            transform: translate(-50%, -50%) rotateZ(120deg) translateX(180px);
+        }
+        .orbit-cube-wrapper:nth-child(4) { 
+            transform: translate(-50%, -50%) rotateZ(180deg) translateX(180px);
+        }
+        .orbit-cube-wrapper:nth-child(5) { 
+            transform: translate(-50%, -50%) rotateZ(240deg) translateX(180px);
+        }
+        .orbit-cube-wrapper:nth-child(6) { 
+            transform: translate(-50%, -50%) rotateZ(300deg) translateX(180px);
+        }
+
+        .orbit-cube-wrapper:nth-child(1):hover:not(.active) { 
+            transform: translate(-50%, -50%) rotateZ(0deg) translateX(180px) scale(1.8);
+        }
+        .orbit-cube-wrapper:nth-child(2):hover:not(.active) { 
+            transform: translate(-50%, -50%) rotateZ(60deg) translateX(180px) scale(1.8);
+        }
+        .orbit-cube-wrapper:nth-child(3):hover:not(.active) { 
+            transform: translate(-50%, -50%) rotateZ(120deg) translateX(180px) scale(1.8);
+        }
+        .orbit-cube-wrapper:nth-child(4):hover:not(.active) { 
+            transform: translate(-50%, -50%) rotateZ(180deg) translateX(180px) scale(1.8);
+        }
+        .orbit-cube-wrapper:nth-child(5):hover:not(.active) { 
+            transform: translate(-50%, -50%) rotateZ(240deg) translateX(180px) scale(1.8);
+        }
+        .orbit-cube-wrapper:nth-child(6):hover:not(.active) { 
+            transform: translate(-50%, -50%) rotateZ(300deg) translateX(180px) scale(1.8);
+        }
+
+        .orbit-cube {
+            position: relative;
+            width: 32px;
+            height: 32px;
+            transform-style: preserve-3d;
+            animation: rotateCube 30s linear infinite;
+        }
+
+        @keyframes rotateCube {
+            from {
+                transform: rotateX(0deg) rotateY(0deg);
+            }
+            to {
+                transform: rotateX(360deg) rotateY(360deg);
+            }
+        }
+
+        .orbit-cube-face {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            background: #d0d0d0;
+            border: 1px solid #b0b0b0;
+            box-shadow: 
+                inset 0 0 5px rgba(0, 0, 0, 0.1),
+                inset -1px -1px 2px rgba(0, 0, 0, 0.08);
+            border-radius: 3px;
+        }
+
+        .orbit-cube-face.front  { transform: rotateY(0deg) translateZ(16px); }
+        .orbit-cube-face.back   { transform: rotateY(180deg) translateZ(16px); }
+        .orbit-cube-face.right  { transform: rotateY(90deg) translateZ(16px); }
+        .orbit-cube-face.left   { transform: rotateY(-90deg) translateZ(16px); }
+        .orbit-cube-face.top    { transform: rotateX(90deg) translateZ(16px); }
+        .orbit-cube-face.bottom { transform: rotateX(-90deg) translateZ(16px); }
+
+        /* Active/Selected state - keep cube scaled (transform set via JavaScript) */
+        .orbit-cube-wrapper.active {
+            /* Transform is set via JavaScript */
+        }
+
+        .orbit-cube-wrapper.active .cube-label {
+            opacity: 1 !important;
+            color: #666666 !important;
+        }
+
+        /* Greyed out state for non-active cubes */
+        .orbit-container.has-active .orbit-cube-wrapper:not(.active) {
+            opacity: 0.3;
+            filter: grayscale(100%);
+        }
+
+        .orbit-container.has-active .orbit-cube-wrapper:not(.active) .cube-label {
+            opacity: 0.3;
+            color: #999999;
+        }
+
+        .orbit-container.has-active .orbit-cube-wrapper:not(.active):hover {
+            opacity: 0.4;
+            /* Transform handled by individual hover states */
+        }
+
+        /* Info boxes */
+        .info-box {
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            background: rgba(165, 165, 165, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+            padding: 0;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+            overflow: hidden;
+            transform-origin: center center;
+        }
+
+        .info-box.left {
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            transition: 
+                width 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                height 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.3s,
+                left 0.4s ease 0.5s,
+                transform 0.4s ease 0.5s,
+                padding 0.3s ease 0.6s,
+                border 0.2s ease 0.7s,
+                border-radius 0.2s ease 0.7s,
+                box-shadow 0.2s ease 0.7s,
+                background 0.2s ease 0.6s,
+                backdrop-filter 0.2s ease 0.6s,
+                -webkit-backdrop-filter 0.2s ease 0.6s,
+                opacity 0.2s ease 0.4s,
+                visibility 0s linear 0.8s;
+        }
+
+        .info-box.right {
+            right: 50%;
+            top: 50%;
+            transform: translate(50%, -50%);
+            transition: 
+                width 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                height 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.3s,
+                right 0.4s ease 0.5s,
+                transform 0.4s ease 0.5s,
+                padding 0.3s ease 0.6s,
+                border 0.2s ease 0.7s,
+                border-radius 0.2s ease 0.7s,
+                box-shadow 0.2s ease 0.7s,
+                background 0.2s ease 0.6s,
+                backdrop-filter 0.2s ease 0.6s,
+                -webkit-backdrop-filter 0.2s ease 0.6s,
+                opacity 0.2s ease 0.4s,
+                visibility 0s linear 0.8s;
+        }
+
+        .info-box.active {
+            width: 400px;
+            height: 600px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            background: rgba(221, 221, 221, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            opacity: 1;
+            visibility: visible;
+            transition: 
+                width 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                height 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.3s,
+                left 0.4s ease 0.5s,
+                right 0.4s ease 0.5s,
+                transform 0.4s ease 0.5s,
+                padding 0.3s ease 0.6s,
+                border 0.2s ease 0.7s,
+                border-radius 0.2s ease 0.7s,
+                box-shadow 0.2s ease 0.7s,
+                background 0.2s ease 0.6s,
+                backdrop-filter 0.2s ease 0.6s,
+                -webkit-backdrop-filter 0.2s ease 0.6s,
+                opacity 0.2s ease 0.4s,
+                visibility 0s;
+        }
+
+        .info-box.active.left {
+            left: 20px;
+            transform: translateY(-50%);
+        }
+
+        .info-box.active.right {
+            right: 20px;
+            transform: translateY(-50%);
+        }
+
+        /* Closing animation - reverse of appear: remove styling, shrink height, shrink width, fade */
+        /* Center point for left box: 20px + 240px (half of 480px) = 260px from left */
+        .info-box:not(.active).left {
+            left: 210px;
+            transform: translate(-50%, -50%);
+            background: rgba(165, 165, 165, 0.3);
+            border-radius: 12px;
+            transition: 
+                padding 0.2s ease,
+                border 0.2s ease,
+                border-radius 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease,
+                backdrop-filter 0.2s ease,
+                -webkit-backdrop-filter 0.2s ease,
+                left 0.3s ease,
+                transform 0.3s ease,
+                height 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.3s,
+                width 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.6s,
+                opacity 0.2s ease 0.9s,
+                visibility 0s linear 1.2s;
+        }
+
+        /* Center point for right box: 20px + 240px (half of 480px) = 260px from right */
+        .info-box:not(.active).right {
+            right: 210px;
+            transform: translate(50%, -50%);
+            background: rgba(165, 165, 165, 0.3);
+            border-radius: 12px;
+            transition: 
+                padding 0.2s ease,
+                border 0.2s ease,
+                border-radius 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease,
+                backdrop-filter 0.2s ease,
+                -webkit-backdrop-filter 0.2s ease,
+                right 0.3s ease,
+                transform 0.3s ease,
+                height 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.3s,
+                width 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.6s,
+                opacity 0.2s ease 0.9s,
+                visibility 0s linear 1.2s;
+        }
+
+        .info-box h2 {
+            font-size: 24px;
+            color: #333333;
+            margin-bottom: 15px;
+            opacity: 0;
+            transition: opacity 0.3s ease 0.6s;
+            position: relative;
+            transform: translateZ(0);
+            will-change: opacity;
+        }
+
+        .info-box.active h2 {
+            opacity: 1;
+        }
+
+        .info-box:not(.active) h2 {
+            opacity: 0 !important;
+            transition: opacity 0.05s ease 0s !important;
+            pointer-events: none;
+        }
+
+        .info-box p {
+            font-size: 14px;
+            color: #666666;
+            line-height: 1.6;
+            opacity: 0;
+            transition: opacity 0.3s ease 0.7s;
+            position: relative;
+            transform: translateZ(0);
+            will-change: opacity;
+        }
+
+        .info-box p a {
+            color: #555555;
+            text-decoration: underline;
+            transition: color 0.2s ease;
+        }
+
+        .info-box p a:hover {
+            color: #333333;
+        }
+
+        .info-box.active p {
+            opacity: 1;
+        }
+
+        .info-box:not(.active) p {
+            opacity: 0 !important;
+            transition: opacity 0.05s ease 0s !important;
+            pointer-events: none;
+        }
+
+        /* YouTube video items */
+        .youtube-item {
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            text-align: center;
+        }
+
+        .youtube-item:hover {
+            transform: translateX(5px);
+            opacity: 0.8;
+        }
+
+        .youtube-item img {
+            width: 100%;
+            max-width: 150px;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .youtube-item a {
+            display: block;
+            text-decoration: none;
+            color: #333333;
+            text-align: center;
+        }
+
+        .youtube-item strong {
+            display: block;
+            font-size: 14px;
+            color: #555555;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        .youtube-item:hover strong {
+            color: #333333;
+        }
+
+        /* Portfolio heading */
+        .portfolio-heading {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 32px;
+            font-weight: 600;
+            color:rgb(118, 118, 118);
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        /* Bottom rotating text */
+        .bottom-text {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            color: #666666;
+            z-index: 100;
+            pointer-events: none;
+            text-align: center;
+            min-height: 20px;
+            opacity: 1;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .bottom-text.fade-out {
+            opacity: 0;
+        }
+
+        /* Resume download button */
+        .resume-button {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: rgba(85, 85, 85, 0.2);
+            border: 1px solid rgba(85, 85, 85, 0.4);
+            border-radius: 6px;
+            color: #555555;
+            text-decoration: none;
+            font-size: 13px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .resume-button:hover {
+            background: rgba(85, 85, 85, 0.3);
+            border-color: rgba(85, 85, 85, 0.6);
+            color: #333333;
+        }
+
+        /* Set cube angles as CSS variables for easier management */
+        .orbit-cube-wrapper:nth-child(1) { --cube-angle: 0deg; }
+        .orbit-cube-wrapper:nth-child(2) { --cube-angle: 60deg; }
+        .orbit-cube-wrapper:nth-child(3) { --cube-angle: 120deg; }
+        .orbit-cube-wrapper:nth-child(4) { --cube-angle: 180deg; }
+        .orbit-cube-wrapper:nth-child(5) { --cube-angle: 240deg; }
+        .orbit-cube-wrapper:nth-child(6) { --cube-angle: 300deg; }
+
+    </style>
+</head>
+<body>
+    <h1 class="portfolio-heading">Vishnu's Portfolio</h1>
+    <div class="bottom-text" id="bottomText">Click to Interact with Zemo</div>
+    <div class="scene-container">
+        <div class="orbit-container">
+            <div class="orbit-cube-wrapper">
+                <span class="cube-label">About Me</span>
+                <div class="orbit-cube">
+                    <div class="orbit-cube-face front"></div>
+                    <div class="orbit-cube-face back"></div>
+                    <div class="orbit-cube-face right"></div>
+                    <div class="orbit-cube-face left"></div>
+                    <div class="orbit-cube-face top"></div>
+                    <div class="orbit-cube-face bottom"></div>
+                </div>
+            </div>
+            <div class="orbit-cube-wrapper">
+                <span class="cube-label">My Works</span>
+                <div class="orbit-cube">
+                    <div class="orbit-cube-face front"></div>
+                    <div class="orbit-cube-face back"></div>
+                    <div class="orbit-cube-face right"></div>
+                    <div class="orbit-cube-face left"></div>
+                    <div class="orbit-cube-face top"></div>
+                    <div class="orbit-cube-face bottom"></div>
+                </div>
+            </div>
+            <div class="orbit-cube-wrapper">
+                <span class="cube-label">My Skills</span>
+                <div class="orbit-cube">
+                    <div class="orbit-cube-face front"></div>
+                    <div class="orbit-cube-face back"></div>
+                    <div class="orbit-cube-face right"></div>
+                    <div class="orbit-cube-face left"></div>
+                    <div class="orbit-cube-face top"></div>
+                    <div class="orbit-cube-face bottom"></div>
+                </div>
+            </div>
+            <div class="orbit-cube-wrapper">
+                <span class="cube-label">Achievements</span>
+                <div class="orbit-cube">
+                    <div class="orbit-cube-face front"></div>
+                    <div class="orbit-cube-face back"></div>
+                    <div class="orbit-cube-face right"></div>
+                    <div class="orbit-cube-face left"></div>
+                    <div class="orbit-cube-face top"></div>
+                    <div class="orbit-cube-face bottom"></div>
+                </div>
+            </div>
+            <div class="orbit-cube-wrapper">
+                <span class="cube-label">Contact Me</span>
+                <div class="orbit-cube">
+                    <div class="orbit-cube-face front"></div>
+                    <div class="orbit-cube-face back"></div>
+                    <div class="orbit-cube-face right"></div>
+                    <div class="orbit-cube-face left"></div>
+                    <div class="orbit-cube-face top"></div>
+                    <div class="orbit-cube-face bottom"></div>
+                </div>
+            </div>
+            <div class="orbit-cube-wrapper">
+                <span class="cube-label">My Youtube</span>
+                <div class="orbit-cube">
+                    <div class="orbit-cube-face front"></div>
+                    <div class="orbit-cube-face back"></div>
+                    <div class="orbit-cube-face right"></div>
+                    <div class="orbit-cube-face left"></div>
+                    <div class="orbit-cube-face top"></div>
+                    <div class="orbit-cube-face bottom"></div>
+                </div>
+            </div>
+        </div>
+    <div class="robot-container">
+            <div class="robot-shadow"></div>
+        <div class="robot-body" id="robotBody">
+            <div class="cube-inner">
+                <div class="cube-inner-face front"></div>
+                <div class="cube-inner-face back"></div>
+                <div class="cube-inner-face right"></div>
+                <div class="cube-inner-face left"></div>
+                <div class="cube-inner-face top"></div>
+                <div class="cube-inner-face bottom"></div>
+            </div>
+            <div class="cube">
+                <div class="cube-face front">
+                    <div class="screen" id="screen">
+                        <div class="emoji-display" id="emojiDisplay"></div>
+                        <div class="eyes-container" id="eyesContainer">
+                            <div class="eye left" id="leftEye"></div>
+                            <div class="eye right" id="rightEye"></div>
+                        </div>
+                    </div>
+                    <div class="details">
+                        <div class="progress-bar"></div>
+                        <div class="slot"></div>
+                        <div class="button"></div>
+                    </div>
+                </div>
+                <div class="cube-face back"></div>
+                <div class="cube-face right"></div>
+                <div class="cube-face left"></div>
+                <div class="cube-face top"></div>
+                <div class="cube-face bottom"></div>
+            </div>
+            <div class="arm left">
+                <div class="hand-cube">
+                    <div class="hand-face front"></div>
+                    <div class="hand-face back"></div>
+                    <div class="hand-face right"></div>
+                    <div class="hand-face left"></div>
+                    <div class="hand-face top"></div>
+                    <div class="hand-face bottom"></div>
+                </div>
+            </div>
+            <div class="arm right">
+                <div class="hand-cube">
+                    <div class="hand-face front"></div>
+                    <div class="hand-face back"></div>
+                    <div class="hand-face right"></div>
+                    <div class="hand-face left"></div>
+                    <div class="hand-face top"></div>
+                    <div class="hand-face bottom"></div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Info boxes -->
+    <div class="info-box left" id="infoBoxLeft">
+        <p id="infoBoxLeftContent">Select a cube to view information.</p>
+    </div>
+    <div class="info-box right" id="infoBoxRight">
+        <p id="infoBoxRightContent">Select a cube to view details.</p>
+    </div>
+
+    <script>
+        const robotBody = document.getElementById('robotBody');
+        const leftEye = document.getElementById('leftEye');
+        const rightEye = document.getElementById('rightEye');
+        const eyesContainer = document.getElementById('eyesContainer');
+        const robotShadow = document.querySelector('.robot-shadow');
+
+        let isWaving = false;
+        let emoteState = 0; // 0 = wave, 1 = heart, 2 = tilt
+
+        function updateRobotLook(e) {
+            const rect = robotBody.getBoundingClientRect();
+            const robotCenterX = rect.left + rect.width / 2;
+            const robotCenterY = rect.top + rect.height / 2;
+            
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+            
+            const deltaX = mouseX - robotCenterX;
+            const deltaY = mouseY - robotCenterY;
+            
+            const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
+            
+            // Calculate distance for eye movement (limit the range)
+            const distance = Math.min(Math.sqrt(deltaX * deltaX + deltaY * deltaY), 200);
+            const maxEyeMove = 15;
+            const eyeMoveX = (deltaX / distance) * maxEyeMove;
+            const eyeMoveY = (deltaY / distance) * maxEyeMove;
+            
+            // Move pupils within eyes (skip during tilt emote to allow blink animation)
+            if (!robotBody.classList.contains('tilt-emote')) {
+            const leftPupil = leftEye.querySelector('.pupil');
+            const rightPupil = rightEye.querySelector('.pupil');
+            
+            if (leftPupil && rightPupil) {
+                    const pupilMoveX = eyeMoveX * 0.15;
+                    const pupilMoveY = eyeMoveY * 0.15;
+                
+                leftPupil.style.transform = `translate(calc(-50% + ${pupilMoveX}px), calc(-50% + ${pupilMoveY}px))`;
+                rightPupil.style.transform = `translate(calc(-50% + ${pupilMoveX}px), calc(-50% + ${pupilMoveY}px))`;
+                }
+            }
+            
+            // Don't update body transform during wave animation
+            if (!isWaving) {
+            // Slight body rotation for more dynamic look
+            const bodyRotateY = deltaX * 0.05;
+            const bodyRotateX = -deltaY * 0.05;
+            robotBody.style.transform = `rotateY(${bodyRotateY}deg) rotateX(${bodyRotateX}deg)`;
+            }
+            
+            // Update shadow to follow rotation slightly
+            if (robotShadow) {
+                const shadowSkewX = deltaX * 0.02;
+                const shadowScaleX = 1 + Math.abs(deltaX) * 0.0003;
+                robotShadow.style.transform = `translateX(-50%) skewX(${shadowSkewX}deg) scaleX(${shadowScaleX})`;
+            }
+        }
+
+        // Create pupils
+        const leftPupil = document.createElement('div');
+        const rightPupil = document.createElement('div');
+        leftPupil.className = 'pupil';
+        rightPupil.className = 'pupil';
+        leftEye.appendChild(leftPupil);
+        rightEye.appendChild(rightPupil);
+        
+        document.addEventListener('mousemove', updateRobotLook);
+        
+        // Initialize with center position
+        updateRobotLook({ clientX: window.innerWidth / 2, clientY: window.innerHeight / 2 });
+
+        // Robot emote animations on click - cycles through wave, heart, tilt
+        const rightArm = document.querySelector('.arm.right');
+        const leftArm = document.querySelector('.arm.left');
+        const robotContainer = document.querySelector('.robot-container');
+        
+        robotBody.addEventListener('click', (e) => {
+            // Don't trigger if clicking on orbiting cubes or info boxes
+            if (e.target.closest('.orbit-cube-wrapper') || e.target.closest('.info-box')) {
+                return;
+            }
+            
+            // Remove all emote classes
+            rightArm.classList.remove('waving');
+            leftArm.classList.remove('waving');
+            robotBody.classList.remove('waving', 'heart-emote', 'tilt-emote');
+            robotContainer.classList.remove('heart-emote');
+            
+            // Set flag to prevent transform updates during animation
+            isWaving = true;
+            
+            // Clear inline transform to allow CSS animation to work
+            robotBody.style.transform = '';
+            robotContainer.style.transform = '';
+            
+            // Force reflow to restart animation
+            void rightArm.offsetWidth;
+            void leftArm.offsetWidth;
+            void robotBody.offsetWidth;
+            void robotContainer.offsetWidth;
+            
+            let animationDuration = 2000;
+            
+            // Cycle through emotes: 0 = wave, 1 = heart, 2 = tilt
+            if (emoteState === 0) {
+                // Wave emote
+                rightArm.classList.add('waving');
+                robotBody.classList.add('waving');
+                animationDuration = 2000;
+            } else if (emoteState === 1) {
+                // Heart emote
+                robotContainer.classList.add('heart-emote');
+                robotBody.classList.add('heart-emote');
+                animationDuration = 2500;
+            } else if (emoteState === 2) {
+                // Tilt emote - reset pupils to center for blink animation
+                const leftPupil = leftEye.querySelector('.pupil');
+                const rightPupil = rightEye.querySelector('.pupil');
+                if (leftPupil && rightPupil) {
+                    leftPupil.style.transform = 'translate(-50%, -50%)';
+                    rightPupil.style.transform = 'translate(-50%, -50%)';
+                }
+                robotBody.classList.add('tilt-emote');
+                animationDuration = 3000;
+            }
+            
+            // Cycle to next emote
+            emoteState = (emoteState + 1) % 3;
+            
+            // Remove classes after animation completes
+            setTimeout(() => {
+                rightArm.classList.remove('waving');
+                leftArm.classList.remove('waving');
+                robotBody.classList.remove('waving', 'heart-emote', 'tilt-emote');
+                robotContainer.classList.remove('heart-emote');
+                isWaving = false;
+                // Restore transform based on current mouse position
+                const event = new MouseEvent('mousemove', {
+                    clientX: e.clientX || window.innerWidth / 2,
+                    clientY: e.clientY || window.innerHeight / 2
+                });
+                updateRobotLook(event);
+            }, animationDuration);
+        });
+
+        // Cube hover functionality - show emoji and hide eyes
+        const screen = document.getElementById('screen');
+        const emojiDisplay = document.getElementById('emojiDisplay');
+        
+        // Emoji mapping for each cube (1-6)
+        const cubeEmojis = {
+            1: '⭐', // About Me - star
+            2: '📝', // My Works - pen and paper
+            3: '⚙️', // My Skills - gear
+            4: '🏆', // Achievements - trophy
+            5: '📞', // Contact Me - phone
+            6: '💻'  // My Youtube - computer
+        };
+
+        // Cube click functionality
+        const cubeWrappers = document.querySelectorAll('.orbit-cube-wrapper');
+        const orbitContainer = document.querySelector('.orbit-container');
+        const infoBoxLeft = document.getElementById('infoBoxLeft');
+        const infoBoxRight = document.getElementById('infoBoxRight');
+        const infoBoxLeftContent = document.getElementById('infoBoxLeftContent');
+        const infoBoxRightContent = document.getElementById('infoBoxRightContent');
+        
+        let activeCube = null;
+
+        // Bottom text rotation and cube-specific messages
+        const bottomText = document.getElementById('bottomText');
+        const defaultMessages = [
+            "Click to Interact with Zemo",
+            "Click on cubes around Zemo for more info",
+            "Zemo's eyes follows you",
+            "More features for Zemo coming soon"
+        ];
+        const cubeMessages = {
+            1: "fun fact: I believe humour is needed in every part of life",
+            2: "visit my devpost and linkedin for more!",
+            3: "I can ask better questions than AI - the real skill",
+            4: "visit my linkedin for more and collaborate in tech events!",
+            5: "tech genz memes in my instagram!",
+            6: "0.1k subscribers!"
+        };
+        let messageIndex = 0;
+        let textRotationInterval = null;
+
+        function updateBottomText(newText) {
+            // Fade out
+            bottomText.classList.add('fade-out');
+            setTimeout(() => {
+                bottomText.textContent = newText;
+                // Fade in
+                bottomText.classList.remove('fade-out');
+            }, 500);
+        }
+
+        function startTextRotation() {
+            if (textRotationInterval) {
+                clearInterval(textRotationInterval);
+            }
+            textRotationInterval = setInterval(() => {
+                if (!activeCube) {
+                    messageIndex = (messageIndex + 1) % defaultMessages.length;
+                    updateBottomText(defaultMessages[messageIndex]);
+                }
+            }, 4000);
+        }
+
+        startTextRotation();
+
+        // Content data for each cube
+        const cubeContent = {
+            1: {
+                left: `<strong>Vishnu S</strong><br><br>
+                       <strong><i class="fas fa-map-marker-alt"></i> Place:</strong> New York<br><br>
+                       <strong><i class="fas fa-lightbulb"></i> Learning & Building:</strong> ML/AI (Artificial Ignorance)<br><br>
+                       <strong><i class="fas fa-graduation-cap"></i> Education:</strong><br>
+                       <strong>Masters in Computer Science</strong><br>
+                       New York University | Present<br>
+                       GPA: 3.72<br><br>
+                       <strong>Bachelors Degree</strong><br>
+                       Rajalakshmi Engineering College | 2020 - 2024<br>
+                       CGPA: 8.94 | Computer Science and Engineering<br><br>
+                       <a href="vishnu_resume_2025.pdf" download="vishnu_resume_2025.pdf" class="resume-button"><i class="fas fa-download"></i> Download Resume</a>`,
+                right: `<strong><i class="fas fa-briefcase"></i> Experience:</strong><br><br>
+                        <strong>Tata Technologies</strong><br>
+                        Generative AI Engineer Intern | Pune, India | June 2025 - July 2025<br>
+                        • Agentic AI apps for workflows • 96% anomaly detection precision<br><br>
+                        <strong>Populus Empowerment Network</strong><br>
+                        Data Science Intern | Chennai, India | Jan 2024 - June 2024<br>
+                        • Analyzed 6M electoral datasets • Automated document extraction<br><br>
+                        <strong>Rajalakshmi Engineering College</strong><br>
+                        AI Research Assistant | Chennai, India | Oct 2023 - Jan 2024<br>
+                        • IEEE Alzheimer study (99.06% accuracy) • Brain MRI segmentation<br><br>
+                        <strong>LogicField Technologies</strong><br>
+                        Machine Learning Intern | Chennai, India | June 2023 - August 2023<br>
+                        • ML models for insurance risk • Predictive algorithms integration`
+            },
+            2: {
+                left: `<div class="youtube-item">
+                       <a href="https://github.com/ZENODIUM/codebase_analyzer_workflow" target="_blank">
+                           <img src="refactor_radar_project.png" alt="Refactor Radar">
+                           <strong>Refactor Radar</strong>
+                       </a>
+                   </div>
+                   <div class="youtube-item">
+                       <a href="https://github.com/ZENODIUM/IncubeAI" target="_blank">
+                           <img src="inqube_ai_project.png" alt="Inqube AI">
+                           <strong>Inqube AI</strong>
+                       </a>
+                   </div>
+                   <div class="youtube-item">
+                       <a href="https://devpost.com/software/ar-aid-tracker" target="_blank">
+                           <img src="ar_aid_trainer_project.png" alt="AR Aid Trainer">
+                           <strong>AR Aid Trainer</strong>
+                       </a>
+                   </div>
+                   <div class="youtube-item">
+                       <a href="https://devpost.com/software/3ducate" target="_blank">
+                           <img src="3ducate_project.jpeg" alt="3Ducate">
+                           <strong>3Ducate</strong>
+                       </a>
+                   </div>`,
+                right: `<div class="youtube-item">
+                        <a href="https://devpost.com/software/pregpose-pal" target="_blank">
+                            <img src="pregposepal_project.png" alt="Pregpose Pal">
+                            <strong>Pregpose Pal</strong>
+                        </a>
+                    </div>
+                    <div class="youtube-item">
+                        <a href="https://devpost.com/software/crunchmail" target="_blank">
+                            <img src="crunchmail_project.png" alt="Crunchmail">
+                            <strong>Crunchmail</strong>
+                        </a>
+                    </div>
+                    <div class="youtube-item">
+                        <a href="https://devpost.com/software/snoo-doodle-quest" target="_blank">
+                            <img src="snoodoodle_project.png" alt="Snoo Doodle Quest">
+                            <strong>Snoo Doodle Quest</strong>
+                        </a>
+                    </div>
+                    <div class="youtube-item">
+                        <a href="https://github.com/ZENODIUM/CT-ThreatGraph/" target="_blank">
+                            <img src="ct_threat_graph_project.png" alt="CT ThreatGraph">
+                            <strong>CT ThreatGraph</strong>
+                        </a>
+                    </div>`
+            },
+            3: {
+                left: `<strong><i class="fas fa-book"></i> Academic Courseworks</strong><br>
+                       • Data Structure and Algorithms<br>
+                       • Machine Learning<br>
+                       • Deep Learning<br>
+                       • Big Data, Data Mining<br>
+                       • Computer Networks<br><br>
+                       <strong><i class="fas fa-robot"></i> AI / Machine Learning</strong><br>
+                       <em>Core Strengths</em><br>
+                       • Machine Learning & Deep Learning<br>
+                       • LLMs, RAG Systems, AI Agents<br>
+                       • Embeddings, Fine-tuning, Prompt Engineering<br>
+                       • Model Training, Evaluation, Optimization<br>
+                       • Computer Vision + Image Processing<br><br>
+                       <strong><i class="fas fa-chart-bar"></i> Data Science / Analytics</strong><br>
+                       • Data Cleaning & Preprocessing<br>
+                       • Feature Engineering<br>
+                       • Statistical Analysis<br>
+                       • Visualization<br>
+                       • SQL, MongoDB`,
+                right: `<strong><i class="fas fa-laptop-code"></i> Programming & Frameworks</strong><br>
+                        • Python, JavaScript<br>
+                        • NumPy, Pandas, scikit-learn<br>
+                        • PyTorch, TensorFlow<br>
+                        • FastAPI, Django, Flask, Streamlit<br>
+                        • Git, Docker<br><br>
+                        <strong><i class="fas fa-tools"></i> Tools & Technologies</strong><br>
+                        • Microsoft Excel<br>
+                        • PowerBI<br>
+                        • UI Path<br>
+                        • Vibe coding Tools (Cursor)<br>
+                        • Jupyter<br>
+                        • AWS / GCP (basic)<br>
+                        • Spline, Figma (basic)<br>
+                        • Linux<br>
+                        • GitHub<br>
+                        • ChromaDB, LangChain, CrewAI<br><br>
+                        <strong><i class="fas fa-palette"></i> Other Skills / Hobbies</strong><br>
+                        • Chess<br>
+                        • Piano, Guitar<br>
+                        • YouTube, Video Editing`
+            },
+            4: {
+                left: `<strong><i class="fas fa-trophy"></i> Hackathon Wins</strong><br><br>
+                       <strong>1. GameAble AI</strong><br>
+                       1st Place | $2,000 Google Grant<br>
+                       PC gaming app using body poses with Gemini AI for dynamic CNN models.<br>
+                       <a href="https://devpost.com/software/gameable-ai" target="_blank" style="color: #555555; text-decoration: underline;">View Project →</a><br><br>
+                       <strong>2. Poseidon's AI</strong><br>
+                       Winner | Bearbella x Amberhacks<br>
+                       Interactive maps for marine species using Gemini AI and Google Maps API.<br>
+                       <a href="https://lnkd.in/gp9tFr3Y" target="_blank" style="color: #555555; text-decoration: underline;">View Project →</a><br><br>
+                       <strong>3. Biomimic Genie</strong><br>
+                       Honorable Mention | Biomimicry Build-a-thon<br>
+                       3D biomimetic models from animal images using Gemini LLM and Mesh AI.<br>
+                       <a href="https://devpost.com/software/biomimic-genie" target="_blank" style="color: #555555; text-decoration: underline;">View Project →</a><br><br>
+                       <strong>4. 3Ducate</strong><br>
+                       Interactive 3D learning platform with hand gestures and AI explanations.<br>
+                       <a href="https://devpost.com/software/3ducate" target="_blank" style="color: #555555; text-decoration: underline;">View Project →</a>`,
+                right: `<strong><i class="fas fa-file-alt"></i> Publications</strong><br>
+                        <em>5 IEEE Research Papers</em><br><br>
+                        <strong>1. Brain MRI Segmentation using PCA-SVM and CNN</strong><br>
+                        Early brain tumor detection from MRI scans<br><br>
+                        <strong>2. Emotion Identification using Facial Expressions</strong><br>
+                        Deep learning for emotion recognition in education<br><br>
+                        <strong>3. Cataract Detection: Transfer Learning & Image Segmentation</strong><br>
+                        CNN-based cataract identification system<br><br>
+                        <strong>4. ADNI Progression Analysis with EfficientNet</strong><br>
+                        Alzheimer's disease detection using MRI analysis<br><br>
+                        <strong>5. Cricket Shot Analysis using Transfer Learning</strong><br>
+                        CNN model for batting shot classification<br><br>
+                        <a href="https://orcid.org/0009-0007-8029-166X" target="_blank" style="color: #555555; text-decoration: underline;">View ORCID Profile →</a>`
+            },
+            5: {
+                left: `<strong><i class="fas fa-envelope"></i> Email</strong><br>
+                       <a href="mailto:vishnuzeno@gmail.com" target="_blank" style="color: #555555; text-decoration: underline;">vishnuzeno@gmail.com</a><br><br>
+                       <strong><i class="fab fa-linkedin"></i> LinkedIn</strong><br>
+                       <a href="https://www.linkedin.com/in/vizeno/" target="_blank" style="color: #555555; text-decoration: underline;">linkedin.com/in/vizeno</a><br><br>
+                       <strong><i class="fab fa-github"></i> GitHub</strong><br>
+                       <a href="https://github.com/ZENODIUM" target="_blank" style="color: #555555; text-decoration: underline;">github.com/ZENODIUM</a><br><br>
+                       <strong><i class="fab fa-youtube"></i> YouTube</strong><br>
+                       <a href="https://www.youtube.com/@artificialintelligencedotdaily" target="_blank" style="color: #555555; text-decoration: underline;">@artificialintelligencedotdaily</a><br><br>
+                       <a href="vishnu_resume_2025.pdf" download="vishnu_resume_2025.pdf" class="resume-button"><i class="fas fa-download"></i> Download Resume</a>`,
+                right: `<strong><i class="fab fa-kaggle"></i> Kaggle</strong><br>
+                        <a href="https://www.kaggle.com/vizeno" target="_blank" style="color: #555555; text-decoration: underline;">kaggle.com/vizeno</a><br><br>
+                        <strong><i class="fab fa-medium"></i> Medium</strong><br>
+                        <a href="https://medium.com/@vishnuzeno" target="_blank" style="color: #555555; text-decoration: underline;">medium.com/@vishnuzeno</a><br><br>
+                        <strong><i class="fab fa-instagram"></i> Instagram</strong><br>
+                        <a href="https://www.instagram.com/artificialintelligence.daily" target="_blank" style="color: #555555; text-decoration: underline;">@artificialintelligence.daily</a><br><br>
+                        <strong><i class="fas fa-code"></i> Devpost</strong><br>
+                        <a href="https://devpost.com/vs3164" target="_blank" style="color: #555555; text-decoration: underline;">devpost.com/vs3164</a>`
+            },
+            6: {
+                left: `<div class="youtube-item">
+                       <a href="https://youtu.be/SZH7G-q6Yr4?si=_ky3jvgAMoVszncr" target="_blank">
+                           <img src="ridge.png" alt="Ridge Regression">
+                           <strong>Ridge Regression</strong>
+                       </a>
+                   </div>
+                   <div class="youtube-item">
+                       <a href="https://youtu.be/i47G29fqngA?si=EszO_fbq2BNBuiVt" target="_blank">
+                           <img src="decision_tree.png" alt="Decision Tree">
+                           <strong>Decision Tree</strong>
+                       </a>
+                   </div>
+                   <div class="youtube-item">
+                       <a href="https://youtu.be/LHQznkdjK-A?si=r42NbOB5MvCvSdzj" target="_blank">
+                           <img src="svm.png" alt="SVM">
+                           <strong>SVM</strong>
+                       </a>
+                   </div>`,
+                right: `<div class="youtube-item">
+                        <a href="https://youtu.be/ZC35Ntxu4Tk?si=n2txOHlr1PxoJEHz" target="_blank">
+                            <img src="linearandlogistic_reg.png" alt="Linear and Logistic Regression">
+                            <strong>Linear and Logistic Regression</strong>
+                        </a>
+                    </div>
+                    <div class="youtube-item">
+                        <a href="https://youtu.be/5D5VsVjMRy0?si=r1g0uzyGZmdJSxPQ" target="_blank">
+                            <img src="linear_algebra_basics.png" alt="Linear Algebra Basics">
+                            <strong>Linear Algebra Basics</strong>
+                        </a>
+                    </div>`
+            }
+        };
+
+        const cubeAngles = [0, 60, 120, 180, 240, 300];
+
+        function handleCubeClick(cubeIndex, wrapper) {
+            // Remove active class from all cubes and reset transforms
+            cubeWrappers.forEach((cube, idx) => {
+                cube.classList.remove('active');
+                // Remove inline transform to allow CSS to take over
+                cube.style.transform = '';
+            });
+            orbitContainer.classList.remove('has-active');
+            
+            // Add active class to clicked cube and set scaled transform
+            wrapper.classList.add('active');
+            const angle = cubeAngles[cubeIndex - 1];
+            wrapper.style.transform = `translate(-50%, -50%) rotateZ(${angle}deg) translateX(180px) scale(1.8)`;
+            orbitContainer.classList.add('has-active');
+            activeCube = cubeIndex;
+            
+            // Show emoji for active cube
+            emojiDisplay.textContent = cubeEmojis[cubeIndex];
+            screen.classList.add('show-emoji');
+            
+            // Update info boxes
+            const content = cubeContent[cubeIndex];
+            if (content) {
+                infoBoxLeftContent.innerHTML = content.left;
+                infoBoxRightContent.innerHTML = content.right;
+                infoBoxLeft.classList.add('active');
+                infoBoxRight.classList.add('active');
+            }
+
+            // Update bottom text with cube-specific message
+            if (cubeMessages[cubeIndex]) {
+                updateBottomText(cubeMessages[cubeIndex]);
+            }
+        }
+
+        // Add hover event listeners to all cubes
+        cubeWrappers.forEach((wrapper, index) => {
+            const cubeIndex = index + 1;
+            
+            // Hover enter - show emoji and hide eyes
+            wrapper.addEventListener('mouseenter', () => {
+                if (!wrapper.classList.contains('active')) {
+                    emojiDisplay.textContent = cubeEmojis[cubeIndex];
+                    screen.classList.add('show-emoji');
+                }
+            });
+            
+            // Hover leave - hide emoji and show eyes
+            wrapper.addEventListener('mouseleave', () => {
+                if (!wrapper.classList.contains('active')) {
+                    screen.classList.remove('show-emoji');
+                }
+            });
+            
+            // Click event
+            wrapper.addEventListener('click', (e) => {
+                e.stopPropagation();
+                handleCubeClick(cubeIndex, wrapper);
+            });
+        });
+
+        // Close info boxes when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.orbit-cube-wrapper') && !e.target.closest('.info-box')) {
+                cubeWrappers.forEach((cube, idx) => {
+                    cube.classList.remove('active');
+                    // Remove inline transform to allow CSS to take over
+                    cube.style.transform = '';
+                });
+                orbitContainer.classList.remove('has-active');
+                infoBoxLeft.classList.remove('active');
+                infoBoxRight.classList.remove('active');
+                activeCube = null;
+                // Hide emoji and show eyes
+                screen.classList.remove('show-emoji');
+                // Restore default rotating text
+                updateBottomText(defaultMessages[messageIndex]);
+                startTextRotation();
+            }
+        });
+    </script>
+</body>
+</html>
