@@ -1308,6 +1308,92 @@
                 font-size: 22px;
                 text-align: center;
             }
+
+        /* Mobile orbit adjustments: closer, smaller cubes and labels */
+        @media (max-width: 768px) {
+            .orbit-container {
+                width: 260px;
+                height: 260px;
+            }
+            .orbit-cube {
+                width: 26px;
+                height: 26px;
+            }
+            .orbit-cube-face {
+                width: 26px;
+                height: 26px;
+                border-radius: 2px;
+            }
+            .orbit-cube-face.front  { transform: rotateY(0deg) translateZ(13px); }
+            .orbit-cube-face.back   { transform: rotateY(180deg) translateZ(13px); }
+            .orbit-cube-face.right  { transform: rotateY(90deg) translateZ(13px); }
+            .orbit-cube-face.left   { transform: rotateY(-90deg) translateZ(13px); }
+            .orbit-cube-face.top    { transform: rotateX(90deg) translateZ(13px); }
+            .orbit-cube-face.bottom { transform: rotateX(-90deg) translateZ(13px); }
+
+            .cube-label {
+                font-size: 10px;
+            }
+
+            /* Bring cubes closer (radius 140px) */
+            .orbit-cube-wrapper:nth-child(1) { 
+                transform: translate(-50%, -50%) rotateZ(0deg) translateX(140px);
+            }
+            .orbit-cube-wrapper:nth-child(2) { 
+                transform: translate(-50%, -50%) rotateZ(60deg) translateX(140px);
+            }
+            .orbit-cube-wrapper:nth-child(3) { 
+                transform: translate(-50%, -50%) rotateZ(120deg) translateX(140px);
+            }
+            .orbit-cube-wrapper:nth-child(4) { 
+                transform: translate(-50%, -50%) rotateZ(180deg) translateX(140px);
+            }
+            .orbit-cube-wrapper:nth-child(5) { 
+                transform: translate(-50%, -50%) rotateZ(240deg) translateX(140px);
+            }
+            .orbit-cube-wrapper:nth-child(6) { 
+                transform: translate(-50%, -50%) rotateZ(300deg) translateX(140px);
+            }
+
+            .orbit-cube-wrapper:nth-child(1):hover:not(.active) { 
+                transform: translate(-50%, -50%) rotateZ(0deg) translateX(140px) scale(1.8);
+            }
+            .orbit-cube-wrapper:nth-child(2):hover:not(.active) { 
+                transform: translate(-50%, -50%) rotateZ(60deg) translateX(140px) scale(1.8);
+            }
+            .orbit-cube-wrapper:nth-child(3):hover:not(.active) { 
+                transform: translate(-50%, -50%) rotateZ(120deg) translateX(140px) scale(1.8);
+            }
+            .orbit-cube-wrapper:nth-child(4):hover:not(.active) { 
+                transform: translate(-50%, -50%) rotateZ(180deg) translateX(140px) scale(1.8);
+            }
+            .orbit-cube-wrapper:nth-child(5):hover:not(.active) { 
+                transform: translate(-50%, -50%) rotateZ(240deg) translateX(140px) scale(1.8);
+            }
+            .orbit-cube-wrapper:nth-child(6):hover:not(.active) { 
+                transform: translate(-50%, -50%) rotateZ(300deg) translateX(140px) scale(1.8);
+            }
+
+            /* Label positions tighter */
+            .orbit-cube-wrapper:nth-child(1) .cube-label {
+                transform: rotateZ(0deg) translateY(-28px) translate(-50%, -50%);
+            }
+            .orbit-cube-wrapper:nth-child(2) .cube-label {
+                transform: rotateZ(-60deg) translateX(10px) translateY(-42px) translate(-50%, -50%);
+            }
+            .orbit-cube-wrapper:nth-child(3) .cube-label {
+                transform: rotateZ(-120deg) translateX(28px) translateY(-36px) translate(-50%, -50%);
+            }
+            .orbit-cube-wrapper:nth-child(4) .cube-label {
+                transform: rotateZ(-180deg) translateX(52px) translateY(-14px) translate(-50%, -50%);
+            }
+            .orbit-cube-wrapper:nth-child(5) .cube-label {
+                transform: rotateZ(-240deg) translateX(28px) translateY(6px) translate(-50%, -50%);
+            }
+            .orbit-cube-wrapper:nth-child(6) .cube-label {
+                transform: rotateZ(-300deg) translateX(6px) translateY(-2px) translate(-50%, -50%);
+            }
+        }
         }
 
         /* Bottom rotating text */
