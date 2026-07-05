@@ -1096,6 +1096,10 @@
             -webkit-backdrop-filter: blur(20px);
             opacity: 1;
             visibility: visible;
+            overflow-x: hidden;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(100, 100, 100, 0.45) transparent;
             transition: 
                 width 0.6s cubic-bezier(0.4, 0, 0.2, 1),
                 height 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.3s,
@@ -1244,6 +1248,15 @@
             pointer-events: none;
         }
 
+        .info-box.active::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .info-box.active::-webkit-scrollbar-thumb {
+            background: rgba(100, 100, 100, 0.45);
+            border-radius: 999px;
+        }
+
         /* YouTube video items */
         .youtube-item {
             margin-bottom: 12px;
@@ -1269,6 +1282,66 @@
             margin-right: auto;
         }
 
+        /* Auto portfolio thumbs: skeleton + fade-in */
+        .portfolio-thumb-wrap {
+            position: relative;
+            display: block;
+            width: 100%;
+            max-width: 150px;
+            aspect-ratio: 16 / 9;
+            margin: 0 auto 6px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: rgba(160, 160, 160, 0.28);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .portfolio-thumb-wrap::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                110deg,
+                rgba(255, 255, 255, 0) 25%,
+                rgba(255, 255, 255, 0.45) 50%,
+                rgba(255, 255, 255, 0) 75%
+            );
+            background-size: 200% 100%;
+            animation: portfolio-shimmer 1.2s ease-in-out infinite;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .portfolio-thumb-wrap.is-loaded::before {
+            opacity: 0;
+            animation: none;
+        }
+
+        @keyframes portfolio-shimmer {
+            0% { background-position: 100% 0; }
+            100% { background-position: -100% 0; }
+        }
+
+        .youtube-item img.portfolio-thumb {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            max-width: none;
+            height: 100%;
+            margin: 0;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: none;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            z-index: 2;
+        }
+
+        .youtube-item img.portfolio-thumb.is-loaded {
+            opacity: 1;
+        }
+
         .youtube-item a {
             display: block;
             text-decoration: none;
@@ -1286,6 +1359,36 @@
 
         .youtube-item:hover strong {
             color: #333333;
+        }
+
+        .portfolio-desc {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            overflow: hidden;
+            font-size: 11px;
+            font-weight: 400;
+            color: #777777;
+            line-height: 1.35;
+            margin-top: 4px;
+            max-width: 170px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .site-footer {
+            position: fixed;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            color: #999999;
+            z-index: 100;
+            pointer-events: none;
+            text-align: center;
+            white-space: nowrap;
+            letter-spacing: 0.02em;
         }
 
         /* Portfolio heading */
@@ -1399,7 +1502,7 @@
         /* Bottom rotating text */
         .bottom-text {
             position: fixed;
-            bottom: 30px;
+            bottom: 28px;
             left: 50%;
             transform: translateX(-50%);
             font-size: 14px;
@@ -1437,6 +1540,50 @@
             color: #333333;
         }
 
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            text-decoration: none !important;
+            color: #555555;
+            margin-bottom: 22px;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .contact-item:hover {
+            opacity: 0.85;
+            transform: translateY(-2px);
+            color: #333333;
+        }
+
+        .contact-item .contact-logo {
+            font-size: 3rem;
+            line-height: 1;
+            color: #444444;
+            margin-bottom: 8px;
+        }
+
+        .contact-item:hover .contact-logo {
+            color: #222222;
+        }
+
+        .contact-item .contact-link {
+            display: block;
+            font-size: 12px;
+            line-height: 1.35;
+            word-break: break-word;
+            max-width: 200px;
+            text-decoration: underline;
+            color: inherit;
+        }
+
+        .contact-resume-wrap {
+            display: flex;
+            justify-content: center;
+            margin-top: 8px;
+        }
+
         /* Set cube angles as CSS variables for easier management */
         .orbit-cube-wrapper:nth-child(1) { --cube-angle: 0deg; }
         .orbit-cube-wrapper:nth-child(2) { --cube-angle: 60deg; }
@@ -1450,6 +1597,7 @@
 <body>
     <h1 class="portfolio-heading">Vishnu's Portfolio</h1>
     <div class="bottom-text" id="bottomText">Click to Interact with Zemo</div>
+    <footer class="site-footer">© Vishnu S — portfolio design not a free template</footer>
     <div class="scene-container">
         <div class="orbit-container">
             <div class="orbit-cube-wrapper">
@@ -1464,7 +1612,7 @@
                 </div>
             </div>
             <div class="orbit-cube-wrapper">
-                <span class="cube-label">My Works</span>
+                <span class="cube-label">GitHub Works</span>
                 <div class="orbit-cube">
                     <div class="orbit-cube-face front"></div>
                     <div class="orbit-cube-face back"></div>
@@ -1583,6 +1731,8 @@
         <p id="infoBoxRightContent">Select a cube to view details.</p>
     </div>
 
+    <!-- Loaded as a script so auto-data works when opening index.html via file:// -->
+    <script src="data/portfolio.js"></script>
     <script>
         const robotBody = document.getElementById('robotBody');
         const leftEye = document.getElementById('leftEye');
@@ -1736,7 +1886,7 @@
         // Emoji mapping for each cube (1-6)
         const cubeEmojis = {
             1: '⭐', // About Me - star
-            2: '📝', // My Works - pen and paper
+            2: '📝', // GitHub Works
             3: '⚙️', // My Skills - gear
             4: '🏆', // Achievements - trophy
             5: '📞', // Contact Me - phone
@@ -1809,7 +1959,7 @@
                        <strong>Bachelors Degree</strong><br>
                        Rajalakshmi Engineering College | 2020 - 2024<br>
                        CGPA: 8.94 | Computer Science and Engineering<br><br>
-                       <a href="vishnu_resume_2025.pdf" download="vishnu_resume_2025.pdf" class="resume-button"><i class="fas fa-download"></i> Download Resume</a>`,
+                       <a href="Vishnu_Sundhan_Resume.pdf" download="Vishnu_Sundhan_Resume.pdf" class="resume-button"><i class="fas fa-download"></i> Download Resume</a>`,
                 right: `<strong><i class="fas fa-briefcase"></i> Experience:</strong><br><br>
                         <strong>Tata Technologies</strong><br>
                         Generative AI Engineer Intern | Pune, India | June 2025 - July 2025<br>
@@ -1948,23 +2098,41 @@
                         <a href="https://orcid.org/0009-0007-8029-166X" target="_blank" style="color: #555555; text-decoration: underline;">View ORCID Profile →</a>`
             },
             5: {
-                left: `<strong><i class="fas fa-envelope"></i> Email</strong><br>
-                       <a href="mailto:vishnuzeno@gmail.com" target="_blank" style="color: #555555; text-decoration: underline;">vishnuzeno@gmail.com</a><br><br>
-                       <strong><i class="fab fa-linkedin"></i> LinkedIn</strong><br>
-                       <a href="https://www.linkedin.com/in/vizeno/" target="_blank" style="color: #555555; text-decoration: underline;">linkedin.com/in/vizeno</a><br><br>
-                       <strong><i class="fab fa-github"></i> GitHub</strong><br>
-                       <a href="https://github.com/ZENODIUM" target="_blank" style="color: #555555; text-decoration: underline;">github.com/ZENODIUM</a><br><br>
-                       <strong><i class="fab fa-youtube"></i> YouTube</strong><br>
-                       <a href="https://www.youtube.com/@artificialintelligencedotdaily" target="_blank" style="color: #555555; text-decoration: underline;">@artificialintelligencedotdaily</a><br><br>
-                       <a href="vishnu_resume_2025.pdf" download="vishnu_resume_2025.pdf" class="resume-button"><i class="fas fa-download"></i> Download Resume</a>`,
-                right: `<strong><i class="fab fa-kaggle"></i> Kaggle</strong><br>
-                        <a href="https://www.kaggle.com/vizeno" target="_blank" style="color: #555555; text-decoration: underline;">kaggle.com/vizeno</a><br><br>
-                        <strong><i class="fab fa-medium"></i> Medium</strong><br>
-                        <a href="https://medium.com/@vishnuzeno" target="_blank" style="color: #555555; text-decoration: underline;">medium.com/@vishnuzeno</a><br><br>
-                        <strong><i class="fab fa-instagram"></i> Instagram</strong><br>
-                        <a href="https://www.instagram.com/artificialintelligence.daily" target="_blank" style="color: #555555; text-decoration: underline;">@artificialintelligence.daily</a><br><br>
-                        <strong><i class="fas fa-code"></i> Devpost</strong><br>
-                        <a href="https://devpost.com/vs3164" target="_blank" style="color: #555555; text-decoration: underline;">devpost.com/vs3164</a>`
+                left: `<a class="contact-item" href="mailto:vishnuzeno@gmail.com">
+                       <i class="fas fa-envelope contact-logo"></i>
+                       <span class="contact-link">vishnuzeno@gmail.com</span>
+                   </a>
+                   <a class="contact-item" href="https://www.linkedin.com/in/vizeno/" target="_blank" rel="noopener noreferrer">
+                       <i class="fab fa-linkedin contact-logo"></i>
+                       <span class="contact-link">linkedin.com/in/vizeno</span>
+                   </a>
+                   <a class="contact-item" href="https://github.com/ZENODIUM" target="_blank" rel="noopener noreferrer">
+                       <i class="fab fa-github contact-logo"></i>
+                       <span class="contact-link">github.com/ZENODIUM</span>
+                   </a>
+                   <a class="contact-item" href="https://www.youtube.com/@artificialintelligencedotdaily" target="_blank" rel="noopener noreferrer">
+                       <i class="fab fa-youtube contact-logo"></i>
+                       <span class="contact-link">@artificialintelligencedotdaily</span>
+                   </a>
+                   <div class="contact-resume-wrap">
+                       <a href="Vishnu_Sundhan_Resume.pdf" download="Vishnu_Sundhan_Resume.pdf" class="resume-button"><i class="fas fa-download"></i> Download Resume</a>
+                   </div>`,
+                right: `<a class="contact-item" href="https://www.kaggle.com/vizeno" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-kaggle contact-logo"></i>
+                        <span class="contact-link">kaggle.com/vizeno</span>
+                    </a>
+                    <a class="contact-item" href="https://medium.com/@vishnuzeno" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-medium contact-logo"></i>
+                        <span class="contact-link">medium.com/@vishnuzeno</span>
+                    </a>
+                    <a class="contact-item" href="https://www.instagram.com/artificialintelligence.daily" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-instagram contact-logo"></i>
+                        <span class="contact-link">@artificialintelligence.daily</span>
+                    </a>
+                    <a class="contact-item" href="https://devpost.com/vs3164" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-code contact-logo"></i>
+                        <span class="contact-link">devpost.com/vs3164</span>
+                    </a>`
             },
             6: {
                 left: `<div class="youtube-item">
@@ -2004,6 +2172,140 @@
 
         const isMobileView = () => window.matchMedia('(max-width: 768px)').matches;
 
+        function escapeHtml(text) {
+            return String(text)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        const preloadedPortfolioImages = new Set();
+
+        function preloadPortfolioImages(data) {
+            const urls = [];
+            if (Array.isArray(data.repos)) {
+                data.repos.forEach((item) => {
+                    if (item.image) urls.push(item.image);
+                });
+            }
+            if (Array.isArray(data.videos)) {
+                data.videos.forEach((item) => {
+                    if (item.image) urls.push(item.image);
+                });
+            }
+            urls.forEach((url) => {
+                if (preloadedPortfolioImages.has(url)) return;
+                preloadedPortfolioImages.add(url);
+                const img = new Image();
+                img.decoding = 'async';
+                img.src = url;
+            });
+        }
+
+        function bindPortfolioThumbnails(root) {
+            if (!root) return;
+            root.querySelectorAll('img.portfolio-thumb').forEach((img) => {
+                const markLoaded = () => {
+                    img.classList.add('is-loaded');
+                    const wrap = img.closest('.portfolio-thumb-wrap');
+                    if (wrap) wrap.classList.add('is-loaded');
+                };
+                if (img.complete && img.naturalWidth > 0) {
+                    markLoaded();
+                } else {
+                    img.addEventListener('load', markLoaded, { once: true });
+                    img.addEventListener('error', markLoaded, { once: true });
+                }
+            });
+        }
+
+        function renderPortfolioItem(item) {
+            const label = item.name || item.title || 'Untitled';
+            const url = item.url || '#';
+            const image = item.image || '';
+            const description = (item.description || '').trim();
+            const descriptionHtml = description
+                ? `<span class="portfolio-desc">${escapeHtml(description)}</span>`
+                : '';
+            return `<div class="youtube-item portfolio-card">
+                <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">
+                    <span class="portfolio-thumb-wrap">
+                        <img class="portfolio-thumb" src="${escapeHtml(image)}" alt="${escapeHtml(label)}" loading="eager" decoding="async">
+                    </span>
+                    <strong>${escapeHtml(label)}</strong>
+                    ${descriptionHtml}
+                </a>
+            </div>`;
+        }
+
+        function splitIntoColumns(items) {
+            if (!items.length) {
+                return { left: '', right: '' };
+            }
+            const mid = Math.ceil(items.length / 2);
+            return {
+                left: items.slice(0, mid).map(renderPortfolioItem).join(''),
+                right: items.slice(mid).map(renderPortfolioItem).join('')
+            };
+        }
+
+        function applyInfoBoxContent(content) {
+            if (!content) return;
+            if (isMobileView()) {
+                infoBoxLeftContent.innerHTML = `${content.left}<br><br>${content.right}`;
+                infoBoxLeft.classList.add('active', 'mobile-single');
+                infoBoxRight.classList.remove('active');
+                infoBoxRight.style.display = 'none';
+                bindPortfolioThumbnails(infoBoxLeftContent);
+            } else {
+                infoBoxLeftContent.innerHTML = content.left;
+                infoBoxRightContent.innerHTML = content.right;
+                infoBoxLeft.classList.add('active');
+                infoBoxLeft.classList.remove('mobile-single');
+                infoBoxRight.classList.add('active');
+                infoBoxRight.style.display = '';
+                bindPortfolioThumbnails(infoBoxLeftContent);
+                bindPortfolioThumbnails(infoBoxRightContent);
+            }
+        }
+
+        function applyPortfolioData(data) {
+            if (!data || typeof data !== 'object') return false;
+
+            preloadPortfolioImages(data);
+
+            let applied = false;
+            if (Array.isArray(data.repos) && data.repos.length) {
+                cubeContent[2] = splitIntoColumns(data.repos);
+                applied = true;
+            }
+            if (Array.isArray(data.videos) && data.videos.length) {
+                cubeContent[6] = splitIntoColumns(data.videos);
+                applied = true;
+            }
+
+            if (applied && (activeCube === 2 || activeCube === 6)) {
+                applyInfoBoxContent(cubeContent[activeCube]);
+            }
+            return applied;
+        }
+
+        async function loadPortfolioData() {
+            // Prefer embedded JS (works with file:// and GitHub Pages)
+            if (applyPortfolioData(window.__PORTFOLIO_DATA__)) return;
+
+            try {
+                const response = await fetch('data/portfolio.json', { cache: 'no-cache' });
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                applyPortfolioData(await response.json());
+            } catch (err) {
+                console.warn('Portfolio auto-data unavailable, using fallback content.', err);
+            }
+        }
+
+        loadPortfolioData();
+
         function handleCubeClick(cubeIndex, wrapper) {
             // Remove active class from all cubes and reset transforms
             cubeWrappers.forEach((cube, idx) => {
@@ -2025,24 +2327,7 @@
             screen.classList.add('show-emoji');
             
             // Update info boxes
-            const content = cubeContent[cubeIndex];
-            if (content) {
-                if (isMobileView()) {
-                    // Single, centered scrollable card on mobile
-                    infoBoxLeftContent.innerHTML = `${content.left}<br><br>${content.right}`;
-                    infoBoxLeft.classList.add('active', 'mobile-single');
-                    infoBoxRight.classList.remove('active');
-                    infoBoxRight.style.display = 'none';
-                } else {
-                    // Dual cards on desktop
-                    infoBoxLeftContent.innerHTML = content.left;
-                    infoBoxRightContent.innerHTML = content.right;
-                    infoBoxLeft.classList.add('active');
-                    infoBoxLeft.classList.remove('mobile-single');
-                    infoBoxRight.classList.add('active');
-                    infoBoxRight.style.display = '';
-                }
-            }
+            applyInfoBoxContent(cubeContent[cubeIndex]);
 
             // Update bottom text with cube-specific message
             if (cubeMessages[cubeIndex]) {
