@@ -1,8 +1,17 @@
 {
-  "updated_at": "2026-07-15T13:52:18Z",
+  "updated_at": "2026-07-16T14:04:01Z",
   "github_user": "ZENODIUM",
   "youtube_channel": "https://www.youtube.com/@artificialintelligencedotdaily",
   "repos": [
+    {
+      "name": "mysite",
+      "description": "My personal portfolio",
+      "url": "https://github.com/ZENODIUM/mysite",
+      "language": "HTML",
+      "stars": 1,
+      "updated_at": "2026-07-15T13:53:19Z",
+      "image": "https://opengraph.githubassets.com/1/ZENODIUM/mysite"
+    },
     {
       "name": "SQL-Skool",
       "description": "",
@@ -11,15 +20,6 @@
       "stars": 0,
       "updated_at": "2026-07-14T21:44:46Z",
       "image": "https://opengraph.githubassets.com/1/ZENODIUM/SQL-Skool"
-    },
-    {
-      "name": "mysite",
-      "description": "My personal portfolio",
-      "url": "https://github.com/ZENODIUM/mysite",
-      "language": "HTML",
-      "stars": 1,
-      "updated_at": "2026-07-14T13:57:13Z",
-      "image": "https://opengraph.githubassets.com/1/ZENODIUM/mysite"
     },
     {
       "name": "Deep-Mode",
