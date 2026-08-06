@@ -1,15 +1,24 @@
 {
-  "updated_at": "2026-08-05T14:19:43Z",
+  "updated_at": "2026-08-06T14:23:15Z",
   "github_user": "ZENODIUM",
   "youtube_channel": "https://www.youtube.com/@artificialintelligencedotdaily",
   "repos": [
+    {
+      "name": "streamfolio",
+      "description": "",
+      "url": "https://github.com/ZENODIUM/streamfolio",
+      "language": "Python",
+      "stars": 0,
+      "updated_at": "2026-08-06T04:27:35Z",
+      "image": "https://opengraph.githubassets.com/1/ZENODIUM/streamfolio"
+    },
     {
       "name": "mysite",
       "description": "My personal portfolio",
       "url": "https://github.com/ZENODIUM/mysite",
       "language": "HTML",
       "stars": 1,
-      "updated_at": "2026-08-04T14:28:29Z",
+      "updated_at": "2026-08-05T14:22:11Z",
       "image": "https://opengraph.githubassets.com/1/ZENODIUM/mysite"
     },
     {
@@ -101,15 +110,6 @@
       "stars": 0,
       "updated_at": "2026-04-17T07:27:38Z",
       "image": "https://opengraph.githubassets.com/1/ZENODIUM/Clarify"
-    },
-    {
-      "name": "The-Bitcoin-Quorum",
-      "description": "",
-      "url": "https://github.com/ZENODIUM/The-Bitcoin-Quorum",
-      "language": "TypeScript",
-      "stars": 0,
-      "updated_at": "2026-04-12T04:42:34Z",
-      "image": "https://opengraph.githubassets.com/1/ZENODIUM/The-Bitcoin-Quorum"
     }
   ],
   "videos": [
