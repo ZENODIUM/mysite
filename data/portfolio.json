@@ -1,8 +1,17 @@
 {
-  "updated_at": "2026-08-06T14:23:15Z",
+  "updated_at": "2026-08-07T13:14:03Z",
   "github_user": "ZENODIUM",
   "youtube_channel": "https://www.youtube.com/@artificialintelligencedotdaily",
   "repos": [
+    {
+      "name": "mysite",
+      "description": "My personal portfolio",
+      "url": "https://github.com/ZENODIUM/mysite",
+      "language": "HTML",
+      "stars": 1,
+      "updated_at": "2026-08-06T14:27:39Z",
+      "image": "https://opengraph.githubassets.com/1/ZENODIUM/mysite"
+    },
     {
       "name": "streamfolio",
       "description": "",
@@ -11,15 +20,6 @@
       "stars": 0,
       "updated_at": "2026-08-06T04:27:35Z",
       "image": "https://opengraph.githubassets.com/1/ZENODIUM/streamfolio"
-    },
-    {
-      "name": "mysite",
-      "description": "My personal portfolio",
-      "url": "https://github.com/ZENODIUM/mysite",
-      "language": "HTML",
-      "stars": 1,
-      "updated_at": "2026-08-05T14:22:11Z",
-      "image": "https://opengraph.githubassets.com/1/ZENODIUM/mysite"
     },
     {
       "name": "SQL-Skool",
