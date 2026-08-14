@@ -1,15 +1,24 @@
 {
-  "updated_at": "2026-08-13T13:21:30Z",
+  "updated_at": "2026-08-14T13:15:56Z",
   "github_user": "ZENODIUM",
   "youtube_channel": "https://www.youtube.com/@artificialintelligencedotdaily",
   "repos": [
+    {
+      "name": "autonomous-agent-prediction",
+      "description": "Kaggle Autonomous Agent Prediction \u2014 agent configs and training code",
+      "url": "https://github.com/ZENODIUM/autonomous-agent-prediction",
+      "language": "Python",
+      "stars": 0,
+      "updated_at": "2026-08-13T21:07:20Z",
+      "image": "https://opengraph.githubassets.com/1/ZENODIUM/autonomous-agent-prediction"
+    },
     {
       "name": "mysite",
       "description": "My personal portfolio",
       "url": "https://github.com/ZENODIUM/mysite",
       "language": "HTML",
       "stars": 1,
-      "updated_at": "2026-08-12T13:20:19Z",
+      "updated_at": "2026-08-13T13:23:00Z",
       "image": "https://opengraph.githubassets.com/1/ZENODIUM/mysite"
     },
     {
@@ -101,15 +110,6 @@
       "stars": 0,
       "updated_at": "2026-04-28T20:10:36Z",
       "image": "https://opengraph.githubassets.com/1/ZENODIUM/Glucosync"
-    },
-    {
-      "name": "Clarify",
-      "description": "A Zero-Download Spatial Intelligence Platform for Consumer Hardware",
-      "url": "https://github.com/ZENODIUM/Clarify",
-      "language": "TypeScript",
-      "stars": 0,
-      "updated_at": "2026-04-17T07:27:38Z",
-      "image": "https://opengraph.githubassets.com/1/ZENODIUM/Clarify"
     }
   ],
   "videos": [
