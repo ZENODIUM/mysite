@@ -1,15 +1,24 @@
 {
-  "updated_at": "2026-08-18T12:54:07Z",
+  "updated_at": "2026-08-19T12:55:22Z",
   "github_user": "ZENODIUM",
   "youtube_channel": "https://www.youtube.com/@artificialintelligencedotdaily",
   "repos": [
+    {
+      "name": "no-ai-just-python",
+      "description": "",
+      "url": "https://github.com/ZENODIUM/no-ai-just-python",
+      "language": "Python",
+      "stars": 0,
+      "updated_at": "2026-08-19T00:32:48Z",
+      "image": "https://opengraph.githubassets.com/1/ZENODIUM/no-ai-just-python"
+    },
     {
       "name": "mysite",
       "description": "My personal portfolio",
       "url": "https://github.com/ZENODIUM/mysite",
       "language": "HTML",
       "stars": 1,
-      "updated_at": "2026-08-17T12:53:37Z",
+      "updated_at": "2026-08-18T12:57:10Z",
       "image": "https://opengraph.githubassets.com/1/ZENODIUM/mysite"
     },
     {
@@ -101,15 +110,6 @@
       "stars": 0,
       "updated_at": "2026-06-03T00:53:59Z",
       "image": "https://opengraph.githubassets.com/1/ZENODIUM/equiply-hackathon"
-    },
-    {
-      "name": "Glucosync",
-      "description": "",
-      "url": "https://github.com/ZENODIUM/Glucosync",
-      "language": "TypeScript",
-      "stars": 0,
-      "updated_at": "2026-04-28T20:10:36Z",
-      "image": "https://opengraph.githubassets.com/1/ZENODIUM/Glucosync"
     }
   ],
   "videos": [
