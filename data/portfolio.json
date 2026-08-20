@@ -1,8 +1,17 @@
 {
-  "updated_at": "2026-08-19T12:55:22Z",
+  "updated_at": "2026-08-20T12:57:07Z",
   "github_user": "ZENODIUM",
   "youtube_channel": "https://www.youtube.com/@artificialintelligencedotdaily",
   "repos": [
+    {
+      "name": "mysite",
+      "description": "My personal portfolio",
+      "url": "https://github.com/ZENODIUM/mysite",
+      "language": "HTML",
+      "stars": 1,
+      "updated_at": "2026-08-19T13:02:43Z",
+      "image": "https://opengraph.githubassets.com/1/ZENODIUM/mysite"
+    },
     {
       "name": "no-ai-just-python",
       "description": "",
@@ -11,15 +20,6 @@
       "stars": 0,
       "updated_at": "2026-08-19T00:32:48Z",
       "image": "https://opengraph.githubassets.com/1/ZENODIUM/no-ai-just-python"
-    },
-    {
-      "name": "mysite",
-      "description": "My personal portfolio",
-      "url": "https://github.com/ZENODIUM/mysite",
-      "language": "HTML",
-      "stars": 1,
-      "updated_at": "2026-08-18T12:57:10Z",
-      "image": "https://opengraph.githubassets.com/1/ZENODIUM/mysite"
     },
     {
       "name": "autonomous-agent-prediction",
