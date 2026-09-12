@@ -1,15 +1,24 @@
 {
-  "updated_at": "2026-09-11T16:11:21Z",
+  "updated_at": "2026-09-12T15:18:39Z",
   "github_user": "ZENODIUM",
   "youtube_channel": "https://www.youtube.com/@artificialintelligencedotdaily",
   "repos": [
+    {
+      "name": "Ticky",
+      "description": "Ticky is a tiny Android overlay. An owl sits on YouTube or Chrome, shows how long you have been there, and gets tired if you blow the cap. Not a blocker. Just the clock.",
+      "url": "https://github.com/ZENODIUM/Ticky",
+      "language": "Kotlin",
+      "stars": 0,
+      "updated_at": "2026-09-12T05:01:32Z",
+      "image": "https://opengraph.githubassets.com/1/ZENODIUM/Ticky"
+    },
     {
       "name": "mysite",
       "description": "My personal portfolio",
       "url": "https://github.com/ZENODIUM/mysite",
       "language": "HTML",
       "stars": 1,
-      "updated_at": "2026-09-10T16:10:37Z",
+      "updated_at": "2026-09-11T16:11:26Z",
       "image": "https://opengraph.githubassets.com/1/ZENODIUM/mysite"
     },
     {
@@ -101,15 +110,6 @@
       "stars": 0,
       "updated_at": "2026-06-05T05:35:57Z",
       "image": "https://opengraph.githubassets.com/1/ZENODIUM/qosmic-audit-harness"
-    },
-    {
-      "name": "Atlas-Assistant",
-      "description": "",
-      "url": "https://github.com/ZENODIUM/Atlas-Assistant",
-      "language": "Python",
-      "stars": 0,
-      "updated_at": "2026-06-03T18:37:50Z",
-      "image": "https://opengraph.githubassets.com/1/ZENODIUM/Atlas-Assistant"
     }
   ],
   "videos": [
