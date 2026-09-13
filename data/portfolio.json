@@ -1,8 +1,17 @@
 {
-  "updated_at": "2026-09-12T15:18:39Z",
+  "updated_at": "2026-09-13T15:55:08Z",
   "github_user": "ZENODIUM",
   "youtube_channel": "https://www.youtube.com/@artificialintelligencedotdaily",
   "repos": [
+    {
+      "name": "mysite",
+      "description": "My personal portfolio",
+      "url": "https://github.com/ZENODIUM/mysite",
+      "language": "HTML",
+      "stars": 1,
+      "updated_at": "2026-09-12T15:18:43Z",
+      "image": "https://opengraph.githubassets.com/1/ZENODIUM/mysite"
+    },
     {
       "name": "Ticky",
       "description": "Ticky is a tiny Android overlay. An owl sits on YouTube or Chrome, shows how long you have been there, and gets tired if you blow the cap. Not a blocker. Just the clock.",
@@ -11,15 +20,6 @@
       "stars": 0,
       "updated_at": "2026-09-12T05:01:32Z",
       "image": "https://opengraph.githubassets.com/1/ZENODIUM/Ticky"
-    },
-    {
-      "name": "mysite",
-      "description": "My personal portfolio",
-      "url": "https://github.com/ZENODIUM/mysite",
-      "language": "HTML",
-      "stars": 1,
-      "updated_at": "2026-09-11T16:11:26Z",
-      "image": "https://opengraph.githubassets.com/1/ZENODIUM/mysite"
     },
     {
       "name": "BooBoo---App-For-Couples",
