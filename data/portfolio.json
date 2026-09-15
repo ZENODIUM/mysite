@@ -1,16 +1,34 @@
 {
-  "updated_at": "2026-09-14T17:56:34Z",
+  "updated_at": "2026-09-15T16:38:20Z",
   "github_user": "ZENODIUM",
   "youtube_channel": "https://www.youtube.com/@artificialintelligencedotdaily",
   "repos": [
+    {
+      "name": "hackerrank-buy-or-wait",
+      "description": "Personal archive of the Buy or Wait affordability pipeline",
+      "url": "https://github.com/ZENODIUM/hackerrank-buy-or-wait",
+      "language": "Python",
+      "stars": 0,
+      "updated_at": "2026-09-14T19:49:33Z",
+      "image": "https://opengraph.githubassets.com/1/ZENODIUM/hackerrank-buy-or-wait"
+    },
     {
       "name": "Hackerman",
       "description": "",
       "url": "https://github.com/ZENODIUM/Hackerman",
       "language": "TypeScript",
       "stars": 0,
-      "updated_at": "2026-09-14T00:05:46Z",
+      "updated_at": "2026-09-14T18:15:38Z",
       "image": "https://opengraph.githubassets.com/1/ZENODIUM/Hackerman"
+    },
+    {
+      "name": "mysite",
+      "description": "My personal portfolio",
+      "url": "https://github.com/ZENODIUM/mysite",
+      "language": "HTML",
+      "stars": 1,
+      "updated_at": "2026-09-14T17:56:40Z",
+      "image": "https://opengraph.githubassets.com/1/ZENODIUM/mysite"
     },
     {
       "name": "team-noisy",
@@ -38,15 +56,6 @@
       "stars": 0,
       "updated_at": "2026-09-13T18:10:06Z",
       "image": "https://opengraph.githubassets.com/1/ZENODIUM/team-stalled"
-    },
-    {
-      "name": "mysite",
-      "description": "My personal portfolio",
-      "url": "https://github.com/ZENODIUM/mysite",
-      "language": "HTML",
-      "stars": 1,
-      "updated_at": "2026-09-13T15:55:13Z",
-      "image": "https://opengraph.githubassets.com/1/ZENODIUM/mysite"
     },
     {
       "name": "Ticky",
@@ -101,15 +110,6 @@
       "stars": 0,
       "updated_at": "2026-07-14T21:44:46Z",
       "image": "https://opengraph.githubassets.com/1/ZENODIUM/SQL-Skool"
-    },
-    {
-      "name": "Deep-Mode",
-      "description": "",
-      "url": "https://github.com/ZENODIUM/Deep-Mode",
-      "language": "Python",
-      "stars": 0,
-      "updated_at": "2026-07-02T23:38:15Z",
-      "image": "https://opengraph.githubassets.com/1/ZENODIUM/Deep-Mode"
     }
   ],
   "videos": [
