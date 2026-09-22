@@ -1,15 +1,51 @@
 {
-  "updated_at": "2026-09-21T18:03:54Z",
+  "updated_at": "2026-09-22T16:38:10Z",
   "github_user": "ZENODIUM",
   "youtube_channel": "https://www.youtube.com/@artificialintelligencedotdaily",
   "repos": [
+    {
+      "name": "Atlas-Assistant",
+      "description": "",
+      "url": "https://github.com/ZENODIUM/Atlas-Assistant",
+      "language": "Python",
+      "stars": 1,
+      "updated_at": "2026-09-22T16:17:11Z",
+      "image": "https://opengraph.githubassets.com/1/ZENODIUM/Atlas-Assistant"
+    },
+    {
+      "name": "Clarify",
+      "description": "A Zero-Download Spatial Intelligence Platform for Consumer Hardware",
+      "url": "https://github.com/ZENODIUM/Clarify",
+      "language": "TypeScript",
+      "stars": 1,
+      "updated_at": "2026-09-22T16:17:10Z",
+      "image": "https://opengraph.githubassets.com/1/ZENODIUM/Clarify"
+    },
+    {
+      "name": "Hackerman",
+      "description": "",
+      "url": "https://github.com/ZENODIUM/Hackerman",
+      "language": "TypeScript",
+      "stars": 1,
+      "updated_at": "2026-09-22T16:16:51Z",
+      "image": "https://opengraph.githubassets.com/1/ZENODIUM/Hackerman"
+    },
+    {
+      "name": "Sightline",
+      "description": "",
+      "url": "https://github.com/ZENODIUM/Sightline",
+      "language": "Python",
+      "stars": 1,
+      "updated_at": "2026-09-22T16:16:50Z",
+      "image": "https://opengraph.githubassets.com/1/ZENODIUM/Sightline"
+    },
     {
       "name": "mysite",
       "description": "My personal portfolio",
       "url": "https://github.com/ZENODIUM/mysite",
       "language": "HTML",
       "stars": 1,
-      "updated_at": "2026-09-20T15:45:51Z",
+      "updated_at": "2026-09-21T18:04:00Z",
       "image": "https://opengraph.githubassets.com/1/ZENODIUM/mysite"
     },
     {
@@ -20,42 +56,6 @@
       "stars": 0,
       "updated_at": "2026-09-14T19:49:33Z",
       "image": "https://opengraph.githubassets.com/1/ZENODIUM/hackerrank-buy-or-wait"
-    },
-    {
-      "name": "Hackerman",
-      "description": "",
-      "url": "https://github.com/ZENODIUM/Hackerman",
-      "language": "TypeScript",
-      "stars": 0,
-      "updated_at": "2026-09-14T18:15:38Z",
-      "image": "https://opengraph.githubassets.com/1/ZENODIUM/Hackerman"
-    },
-    {
-      "name": "team-noisy",
-      "description": "Hackerman team repo (team-noisy)",
-      "url": "https://github.com/ZENODIUM/team-noisy",
-      "language": null,
-      "stars": 0,
-      "updated_at": "2026-09-13T18:32:32Z",
-      "image": "https://opengraph.githubassets.com/1/ZENODIUM/team-noisy"
-    },
-    {
-      "name": "team-healthy",
-      "description": "Hackerman team repo (team-healthy)",
-      "url": "https://github.com/ZENODIUM/team-healthy",
-      "language": null,
-      "stars": 0,
-      "updated_at": "2026-09-13T18:32:31Z",
-      "image": "https://opengraph.githubassets.com/1/ZENODIUM/team-healthy"
-    },
-    {
-      "name": "team-stalled",
-      "description": "Hackerman team repo (team-stalled)",
-      "url": "https://github.com/ZENODIUM/team-stalled",
-      "language": null,
-      "stars": 0,
-      "updated_at": "2026-09-13T18:10:06Z",
-      "image": "https://opengraph.githubassets.com/1/ZENODIUM/team-stalled"
     },
     {
       "name": "Ticky",
@@ -114,6 +114,13 @@
   ],
   "videos": [
     {
+      "title": "Transformers From Scratch (Part 2) - Embeddings, Positional Encoding, and Z = X + PE",
+      "url": "https://www.youtube.com/watch?v=VMhyKe4Dke4",
+      "video_id": "VMhyKe4Dke4",
+      "published": "2026-09-22T00:49:33+00:00",
+      "image": "https://i.ytimg.com/vi/VMhyKe4Dke4/hqdefault.jpg"
+    },
+    {
       "title": "Transformers From Scratch (Part 1) - Tokens, Embeddings, and Why Order Matters",
       "url": "https://www.youtube.com/watch?v=gJtMrJZ46vU",
       "video_id": "gJtMrJZ46vU",
@@ -161,13 +168,6 @@
       "video_id": "LHQznkdjK-A",
       "published": "2025-09-08T02:16:21+00:00",
       "image": "https://i.ytimg.com/vi/LHQznkdjK-A/hqdefault.jpg"
-    },
-    {
-      "title": "Linear & Logistic Regression: An In-Depth Guide to the Math and Code from Scratch",
-      "url": "https://www.youtube.com/watch?v=ZC35Ntxu4Tk",
-      "video_id": "ZC35Ntxu4Tk",
-      "published": "2025-09-02T23:44:06+00:00",
-      "image": "https://i.ytimg.com/vi/ZC35Ntxu4Tk/hqdefault.jpg"
     }
   ]
 }
