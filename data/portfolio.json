@@ -1,15 +1,24 @@
 {
-  "updated_at": "2026-10-15T16:39:30Z",
+  "updated_at": "2026-10-16T16:22:28Z",
   "github_user": "ZENODIUM",
   "youtube_channel": "https://www.youtube.com/@artificialintelligencedotdaily",
   "repos": [
+    {
+      "name": "jev-migration-lab",
+      "description": "Local lab that compares support-desk architectures before a migration.",
+      "url": "https://github.com/ZENODIUM/jev-migration-lab",
+      "language": "Python",
+      "stars": 0,
+      "updated_at": "2026-10-16T16:04:48Z",
+      "image": "https://opengraph.githubassets.com/1/ZENODIUM/jev-migration-lab"
+    },
     {
       "name": "mysite",
       "description": "My personal portfolio",
       "url": "https://github.com/ZENODIUM/mysite",
       "language": "HTML",
       "stars": 1,
-      "updated_at": "2026-10-14T16:52:48Z",
+      "updated_at": "2026-10-15T16:39:36Z",
       "image": "https://opengraph.githubassets.com/1/ZENODIUM/mysite"
     },
     {
@@ -101,15 +110,6 @@
       "stars": 0,
       "updated_at": "2026-09-14T19:49:33Z",
       "image": "https://opengraph.githubassets.com/1/ZENODIUM/hackerrank-buy-or-wait"
-    },
-    {
-      "name": "Ticky",
-      "description": "Ticky is a tiny Android overlay. An owl sits on YouTube or Chrome, shows how long you have been there, and gets tired if you blow the cap. Not a blocker. Just the clock.",
-      "url": "https://github.com/ZENODIUM/Ticky",
-      "language": "Kotlin",
-      "stars": 0,
-      "updated_at": "2026-09-12T05:01:32Z",
-      "image": "https://opengraph.githubassets.com/1/ZENODIUM/Ticky"
     }
   ],
   "videos": [
