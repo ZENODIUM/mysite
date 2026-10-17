@@ -1,8 +1,17 @@
 {
-  "updated_at": "2026-10-16T16:22:28Z",
+  "updated_at": "2026-10-17T15:17:00Z",
   "github_user": "ZENODIUM",
   "youtube_channel": "https://www.youtube.com/@artificialintelligencedotdaily",
   "repos": [
+    {
+      "name": "mysite",
+      "description": "My personal portfolio",
+      "url": "https://github.com/ZENODIUM/mysite",
+      "language": "HTML",
+      "stars": 1,
+      "updated_at": "2026-10-16T16:22:33Z",
+      "image": "https://opengraph.githubassets.com/1/ZENODIUM/mysite"
+    },
     {
       "name": "jev-migration-lab",
       "description": "Local lab that compares support-desk architectures before a migration.",
@@ -11,15 +20,6 @@
       "stars": 0,
       "updated_at": "2026-10-16T16:04:48Z",
       "image": "https://opengraph.githubassets.com/1/ZENODIUM/jev-migration-lab"
-    },
-    {
-      "name": "mysite",
-      "description": "My personal portfolio",
-      "url": "https://github.com/ZENODIUM/mysite",
-      "language": "HTML",
-      "stars": 1,
-      "updated_at": "2026-10-15T16:39:36Z",
-      "image": "https://opengraph.githubassets.com/1/ZENODIUM/mysite"
     },
     {
       "name": "openscad-lora-init",
