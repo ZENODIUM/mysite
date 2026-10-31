@@ -1,15 +1,24 @@
 {
-  "updated_at": "2026-10-30T17:52:14Z",
+  "updated_at": "2026-10-31T17:03:26Z",
   "github_user": "ZENODIUM",
   "youtube_channel": "https://www.youtube.com/@artificialintelligencedotdaily",
   "repos": [
+    {
+      "name": "Murderball-Analytics",
+      "description": "Beyond the scoreboard. Discovering the contributions, patterns, and decisions that shape wheelchair rugby.",
+      "url": "https://github.com/ZENODIUM/Murderball-Analytics",
+      "language": "Python",
+      "stars": 0,
+      "updated_at": "2026-10-31T04:13:30Z",
+      "image": "https://opengraph.githubassets.com/1/ZENODIUM/Murderball-Analytics"
+    },
     {
       "name": "mysite",
       "description": "My personal portfolio",
       "url": "https://github.com/ZENODIUM/mysite",
       "language": "HTML",
       "stars": 1,
-      "updated_at": "2026-10-29T18:16:23Z",
+      "updated_at": "2026-10-30T17:52:20Z",
       "image": "https://opengraph.githubassets.com/1/ZENODIUM/mysite"
     },
     {
@@ -101,15 +110,6 @@
       "stars": 1,
       "updated_at": "2026-09-22T16:17:10Z",
       "image": "https://opengraph.githubassets.com/1/ZENODIUM/Clarify"
-    },
-    {
-      "name": "Hackerman",
-      "description": "",
-      "url": "https://github.com/ZENODIUM/Hackerman",
-      "language": "TypeScript",
-      "stars": 1,
-      "updated_at": "2026-09-22T16:16:51Z",
-      "image": "https://opengraph.githubassets.com/1/ZENODIUM/Hackerman"
     }
   ],
   "videos": [
