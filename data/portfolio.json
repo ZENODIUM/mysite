@@ -1,8 +1,17 @@
 {
-  "updated_at": "2026-11-02T21:33:53Z",
+  "updated_at": "2026-11-03T19:17:42Z",
   "github_user": "ZENODIUM",
   "youtube_channel": "https://www.youtube.com/@artificialintelligencedotdaily",
   "repos": [
+    {
+      "name": "mysite",
+      "description": "My personal portfolio",
+      "url": "https://github.com/ZENODIUM/mysite",
+      "language": "HTML",
+      "stars": 1,
+      "updated_at": "2026-11-02T21:33:59Z",
+      "image": "https://opengraph.githubassets.com/1/ZENODIUM/mysite"
+    },
     {
       "name": "LookWeave",
       "description": "Fashion For Everyone",
@@ -11,15 +20,6 @@
       "stars": 0,
       "updated_at": "2026-11-02T14:54:51Z",
       "image": "https://opengraph.githubassets.com/1/ZENODIUM/LookWeave"
-    },
-    {
-      "name": "mysite",
-      "description": "My personal portfolio",
-      "url": "https://github.com/ZENODIUM/mysite",
-      "language": "HTML",
-      "stars": 1,
-      "updated_at": "2026-11-01T17:47:47Z",
-      "image": "https://opengraph.githubassets.com/1/ZENODIUM/mysite"
     },
     {
       "name": "Murderball-Analytics",
