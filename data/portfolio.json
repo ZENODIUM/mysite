@@ -1,8 +1,17 @@
 {
-  "updated_at": "2026-11-09T22:07:26Z",
+  "updated_at": "2026-11-10T19:29:34Z",
   "github_user": "ZENODIUM",
   "youtube_channel": "https://www.youtube.com/@artificialintelligencedotdaily",
   "repos": [
+    {
+      "name": "mysite",
+      "description": "My personal portfolio",
+      "url": "https://github.com/ZENODIUM/mysite",
+      "language": "HTML",
+      "stars": 1,
+      "updated_at": "2026-11-09T22:07:32Z",
+      "image": "https://opengraph.githubassets.com/1/ZENODIUM/mysite"
+    },
     {
       "name": "ethnoharvest-deploy",
       "description": "",
@@ -11,15 +20,6 @@
       "stars": 0,
       "updated_at": "2026-11-08T18:20:21Z",
       "image": "https://opengraph.githubassets.com/1/ZENODIUM/ethnoharvest-deploy"
-    },
-    {
-      "name": "mysite",
-      "description": "My personal portfolio",
-      "url": "https://github.com/ZENODIUM/mysite",
-      "language": "HTML",
-      "stars": 1,
-      "updated_at": "2026-11-08T17:47:42Z",
-      "image": "https://opengraph.githubassets.com/1/ZENODIUM/mysite"
     },
     {
       "name": "EcoRoots",
