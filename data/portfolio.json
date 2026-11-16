@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-15T18:39:36Z",
+  "updated_at": "2026-11-16T21:49:10Z",
   "github_user": "ZENODIUM",
   "youtube_channel": "https://www.youtube.com/@artificialintelligencedotdaily",
   "repos": [
@@ -9,8 +9,17 @@
       "url": "https://github.com/ZENODIUM/mysite",
       "language": "HTML",
       "stars": 1,
-      "updated_at": "2026-11-11T20:25:05Z",
+      "updated_at": "2026-11-16T16:04:36Z",
       "image": "https://opengraph.githubassets.com/1/ZENODIUM/mysite"
+    },
+    {
+      "name": "Focuser-No-Doomscrolling",
+      "description": "",
+      "url": "https://github.com/ZENODIUM/Focuser-No-Doomscrolling",
+      "language": "Kotlin",
+      "stars": 1,
+      "updated_at": "2026-11-16T05:03:40Z",
+      "image": "https://opengraph.githubassets.com/1/ZENODIUM/Focuser-No-Doomscrolling"
     },
     {
       "name": "ethnoharvest-deploy",
@@ -101,15 +110,6 @@
       "stars": 0,
       "updated_at": "2026-09-25T18:49:29Z",
       "image": "https://opengraph.githubassets.com/1/ZENODIUM/NorthStar---Pharma-Compliance-OS"
-    },
-    {
-      "name": "Stevens-AI-Hackathon",
-      "description": "",
-      "url": "https://github.com/ZENODIUM/Stevens-AI-Hackathon",
-      "language": "TypeScript",
-      "stars": 0,
-      "updated_at": "2026-09-25T16:06:53Z",
-      "image": "https://opengraph.githubassets.com/1/ZENODIUM/Stevens-AI-Hackathon"
     }
   ],
   "videos": [
